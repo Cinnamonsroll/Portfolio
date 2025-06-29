@@ -39,7 +39,7 @@ export const projects = [
     shelf: 1,
     position: "right",
     live: "https://pixy-code.vercel.app/",
-    code: "https://github.com/Cinnamonsroll/Pixy/tree/main"
+    code: "https://github.com/Cinnamonsroll/Pixy"
   },
   {
     id: 4,
@@ -76,5 +76,6 @@ export const projects = [
     status: "Fresh",
     shelf: 2,
     position: "right",
+    code: "https://github.com/Cinnamonsroll/Portfolio"
   },
 ];
