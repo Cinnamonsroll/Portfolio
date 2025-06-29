@@ -1,0 +1,239 @@
+.envelope-station {
+  display: flex;
+  justify-content: center;
+}
+
+.envelope-preparation {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 100%;
+}
+
+.envelope-preparation h3 {
+  color: #3e2723;
+  margin: 0 0 2rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.envelope-large {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto 2rem;
+  background: var(--envelope-manila);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: perspective(800px) rotateX(5deg);
+}
+
+.envelope-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template-areas:
+    "from stamp"
+    "to stamp"
+    ". stamp";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+}
+
+.to-address {
+  grid-area: to;
+  align-self: center;
+}
+
+.from-address {
+  grid-area: from;
+  align-self: start;
+}
+
+.address-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  transform: rotate(-0.3deg);
+}
+
+.address-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.address-line {
+  font-size: 1.1rem;
+  color: #3e2723;
+  transform: rotate(0.2deg);
+}
+
+.stamp-area {
+  grid-area: stamp;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.stamp-selection h4 {
+  color: #3e2723;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+.stamp-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.stamp-option {
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.stamp-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stamp-option.selected {
+  border-color: var(--cafe-brown);
+  transform: scale(1.05);
+}
+
+.stamp-design {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  border: 3px solid white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stamp-emoji {
+  font-size: 1.5rem;
+}
+
+.stamp-price {
+  font-size: 0.7rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.stamp-name {
+  font-size: 0.8rem;
+  color: #5d4037;
+  font-weight: 600;
+}
+
+.selected-stamp {
+  margin-top: 1rem;
+}
+
+.stamp-placed {
+  width: 80px;
+  height: 100px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  border: 3px solid white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: rotate(-2deg);
+}
+
+.stamp-placed .stamp-emoji {
+  font-size: 2rem;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--envelope-manila);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  filter: brightness(0.9);
+}
+
+.wax-seal-area {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.wax-seal {
+  width: 40px;
+  height: 40px;
+  background: var(--wax-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.envelope-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.back-to-writing,
+.seal-envelope {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.back-to-writing {
+  background: #ccc;
+  color: #666;
+}
+
+.back-to-writing:hover {
+  background: #bbb;
+}
+
+.seal-envelope {
+  background: var(--cafe-brown);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seal-envelope:hover {
+  background: #a0522d;
+  transform: translateY(-2px);
+}

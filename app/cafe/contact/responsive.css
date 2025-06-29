@@ -1,0 +1,191 @@
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2.5rem;
+  }
+
+  .writing-desk-container {
+    padding: 1rem;
+  }
+
+  .writing-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .paper-selection-sidebar {
+    order: 2;
+  }
+
+  .letter-writing-main {
+    order: 1;
+  }
+
+  .paper-options-compact {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .paper-option-compact {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .letter-paper-large {
+    padding: 2rem;
+    min-height: 500px;
+  }
+
+  .handwritten-input-large,
+  .handwritten-textarea-large {
+    font-size: 1.1rem;
+  }
+
+  .handwritten-textarea-large {
+    min-height: 120px;
+  }
+
+  .desk-surface {
+    padding: 2rem;
+    transform: rotateX(3deg);
+    min-height: 400px;
+  }
+
+  .desk-items {
+    min-height: 300px;
+  }
+
+  /* Adjust desk items for mobile */
+  .coffee-mug {
+    top: 5%;
+    right: 10%;
+    width: 40px;
+    height: 60px;
+  }
+
+  .clipboard {
+    top: 10%;
+    left: 5%;
+    width: 80px;
+    height: 120px;
+  }
+
+  .sticky-note {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sticky-text {
+    font-size: 0.6rem;
+  }
+
+  .pencil-holder {
+    top: 15%;
+    right: 25%;
+    width: 40px;
+    height: 50px;
+  }
+
+  .notebook {
+    bottom: 20%;
+    right: 5%;
+    width: 70px;
+    height: 90px;
+  }
+
+  .desk-lamp {
+    top: 5%;
+    left: 50%;
+  }
+
+  .paper-stack {
+    bottom: 15%;
+    left: 35%;
+    width: 60px;
+    height: 80px;
+  }
+
+  .desk-invitation {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 2rem;
+    max-width: 100%;
+  }
+
+  .envelope-large {
+    height: 300px;
+    padding: 1rem;
+  }
+
+  .envelope-front {
+    grid-template-areas:
+      "from"
+      "to"
+      "stamp";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .stamp-area {
+    align-items: center;
+  }
+
+  .writing-actions,
+  .envelope-actions {
+    flex-direction: column;
+  }
+
+  .back-btn {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .desk-surface {
+    padding: 1.5rem;
+    min-height: 350px;
+  }
+
+  .desk-items {
+    min-height: 250px;
+  }
+
+  .sticky-note {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sticky-text {
+    font-size: 0.5rem;
+  }
+
+  .letter-paper-large {
+    padding: 1.5rem;
+    min-height: 400px;
+  }
+
+  .envelope-large {
+    height: 250px;
+  }
+
+  .stamp-options {
+    grid-template-columns: 1fr;
+  }
+
+  .desk-invitation {
+    padding: 1.5rem;
+  }
+
+  .desk-invitation h3 {
+    font-size: 1.5rem;
+  }
+
+  .desk-invitation p {
+    font-size: 1rem;
+  }
+}

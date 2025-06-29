@@ -1,0 +1,71 @@
+.sent-station {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.success-scene {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: success-bounce 0.6s ease-out;
+}
+
+.success-scene h3 {
+  color: #3e2723;
+  font-size: 2rem;
+  margin: 0 0 1rem;
+}
+
+.success-scene p {
+  color: #5d4037;
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.message-summary {
+  background: rgba(139, 69, 19, 0.05);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.message-summary h4 {
+  color: #3e2723;
+  margin: 0 0 1rem;
+}
+
+.summary-item {
+  color: #5d4037;
+  margin: 0.5rem 0;
+}
+
+.write-another {
+  background: var(--cafe-brown);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.write-another:hover {
+  background: #a0522d;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(139, 69, 19, 0.3);
+}

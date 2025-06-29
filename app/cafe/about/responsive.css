@@ -1,0 +1,166 @@
+
+@media (max-width: 1024px) {
+    .about-content {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 2rem;
+      padding: 0 1.5rem 3rem;
+    }
+  
+    .profile-polaroid {
+      width: 250px;
+    }
+  
+    .polaroid-image {
+      height: 200px;
+    }
+  
+    .journey-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  
+  @media (max-width: 768px) {
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 1rem 3rem;
+    }
+  
+    .profile-polaroid {
+      width: 100%;
+      max-width: 250px;
+      padding: 0.75rem 0.75rem 2rem;
+      margin: 0 auto;
+    }
+  
+    .polaroid-image {
+      height: 200px;
+    }
+  
+    .profile-avatar {
+      font-size: 5rem;
+    }
+  
+    .profile-name {
+      font-size: 1.5rem;
+    }
+  
+    .bulletin-board {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: stretch;
+      width: 100%;
+      max-width: 300px;
+      padding: 1.5rem;
+      border-width: 8px;
+    }
+  
+    .bulletin-board > * {
+      width: 100%;
+    }
+  
+    .board-header h2 {
+      font-size: 2rem;
+    }
+  
+    .journey-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  
+    .coffee-note {
+      width: 100%;
+      max-width: 300px;
+      padding: 1.5rem;
+      margin: 0;
+    }
+  
+    .note-content h3 {
+      font-size: 1.5rem;
+    }
+  
+    .note-content p {
+      font-size: 1rem;
+    }
+  
+    .skills-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  
+    .skill-note {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .back-btn {
+      top: 1rem;
+      left: 1rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  
+  @media (max-width: 480px) {
+    .profile-polaroid {
+      width: 200px;
+      padding: 0.5rem 0.5rem 1.5rem;
+    }
+  
+    .polaroid-image {
+      height: 160px;
+    }
+  
+    .profile-avatar {
+      font-size: 4rem;
+    }
+  
+    .profile-name {
+      font-size: 1.25rem;
+    }
+  
+    .profile-title {
+      font-size: 1rem;
+    }
+  
+    .bulletin-board {
+      padding: 1rem;
+      border-width: 6px;
+    }
+  
+    .board-header h2 {
+      font-size: 1.75rem;
+    }
+  
+    .coffee-note {
+      padding: 1.25rem;
+    }
+  
+    .note-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+  
+    .note-content p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  
+    .skills-title {
+      font-size: 1.5rem;
+    }
+  
+    .back-btn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  }
+  
