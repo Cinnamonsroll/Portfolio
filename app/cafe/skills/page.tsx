@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import "../cafe.css";
 import "./skills.css";
+import "./responsive.css"
 import { skillRecipes } from "./skills";
 
 export default function SkillsPage() {

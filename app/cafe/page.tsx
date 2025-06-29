@@ -3,6 +3,8 @@
 import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import "./cafe.css";
+import "./animations.css"
+import "./responsive.css"
 
 type PortfolioItem = {
   id: string;

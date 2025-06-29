@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "../cafe.css";
 import "./about.css";
+import "./responsive.css";
 import { interpolate } from "@/app/utils/lib";
 
 export default function AboutPage() {
