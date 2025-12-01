@@ -22,13 +22,48 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="icon"
-          href="/pancake.png"
-          type="image/png"
-        />
+        <link rel="icon" href="/pancake.png" type="image/png" />
       </head>
       <body className={`${handlee.variable} antialiased`}>
+        <div className="snowflakes" aria-hidden="true">
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+          <div className="snowflake">
+            <div className="inner">❅</div>
+          </div>
+        </div>
+
         <Alert />
         {children}
       </body>
