@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pancake.wtf
 
-## Getting Started
+Personal portfolio — built with Next.js, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4
+- **Animation**: Framer Motion
+- **Font**: Plus Jakarta Sans
+- **Markdown**: marked + marked-highlight + highlight.js
+- **Icons**: Heroicons
+
+## Structure
+
+```
+app/
+├── page.tsx              # home page
+├── layout.tsx            # root layout, SEO, fonts
+├── globals.css           # theme variables, prose, animations
+├── work/
+│   ├── page.tsx          # gallery grid of all projects
+│   └── [slug]/           # individual project page
+│       ├── page.tsx      # server: marked rendering + metadata
+│       └── client.tsx    # client: layout, animations, code copy
+└── crafts/
+    ├── page.tsx          # listing of crafts
+    └── [slug]/           # individual craft page
+
+components/
+├── sections/             # hero, grid-section, section-card, coming-soon
+├── ui/                   # entry-row, polaroid-stack
+├── effects/              # animated-svg, sparkles, pancake, image-effects (lightbox/reveal)
+├── markdown/             # code-block (copy button)
+└── crafts/stickers/      # sticker drag-and-drop app
+
+lib/
+├── types.ts              # Project, Craft, etc.
+├── utils.ts              # shared: slugify, formatDate, byDate, STICKER_*
+├── constants.ts          # NAME, DESCRIPTION, GITHUB, LAST_UPDATED
+├── age.ts                # getAge()
+└── data/
+    ├── projects/         # per-project folders with index.ts + content.md
+    └── crafts/           # per-craft folders
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev     # start dev server
+npm run build   # production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Projects
 
-## Learn More
+Each project lives in `lib/data/projects/<slug>/` with:
+- `index.ts` — metadata (title, description, tags, images, dates, links, collaborators)
+- `content.md` — markdown body with `{image:N}` placeholders
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Images go in `public/projects/<slug>/`.

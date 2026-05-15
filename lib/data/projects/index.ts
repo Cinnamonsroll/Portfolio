@@ -1,0 +1,14 @@
+import type { Project } from "@/lib/types";
+import { slugify } from "@/lib/utils";
+import portfolio from "./portfolio/index";
+import numeral from "./numeral/index";
+import trigr from "./trigr/index";
+import spectra from "./spectra/index";
+import sve from "./sve/index";
+
+const raw = [portfolio, numeral, trigr, spectra, sve];
+
+export const projects: Project[] = raw.map((p) => ({
+  ...p,
+  slug: slugify(p.title),
+}));

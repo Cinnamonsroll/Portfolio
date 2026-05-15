@@ -1,0 +1,103 @@
+"use client";
+
+import { useState, useCallback, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Spark {
+  id: number;
+  x: number;
+  y: number;
+  rot: number;
+  dx: number;
+  dy: number;
+}
+
+interface SparklesProps {
+  hovered: boolean;
+  parentRef: React.RefObject<HTMLDivElement | null>;
+}
+
+export function Sparkles({ hovered, parentRef }: SparklesProps) {
+  const [sparks, setSparks] = useState<Spark[]>([]);
+  const last = useRef(0);
+
+  const addSpark = useCallback(
+    (clientX: number, clientY: number) => {
+      const now = Date.now();
+      if (now - last.current < 60) return;
+      last.current = now;
+      const el = parentRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setSparks((prev) => [
+        ...prev.slice(-12),
+        {
+          id: now + Math.random(),
+          x: clientX - rect.left,
+          y: clientY - rect.top,
+          rot: Math.random() * 360,
+          dx: (Math.random() - 0.5) * 10,
+          dy: -10 - Math.random() * 8,
+        },
+      ]);
+    },
+    [parentRef],
+  );
+
+  useEffect(() => {
+    if (!hovered) return;
+
+    const el = parentRef.current;
+    if (!el) return;
+
+    const onMove = (e: MouseEvent) => {
+      addSpark(e.clientX, e.clientY);
+    };
+
+    window.addEventListener("mousemove", onMove);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      setSparks([]);
+    };
+  }, [hovered, addSpark, parentRef]);
+
+  useEffect(() => {
+    if (!hovered) return;
+    const interval = setInterval(() => {
+      setSparks((prev) => prev.slice(1));
+    }, 500);
+    return () => clearInterval(interval);
+  }, [hovered]);
+
+  return (
+    <AnimatePresence>
+      {sparks.map((s) => (
+        <motion.div
+          key={s.id}
+          className="absolute pointer-events-none z-10"
+          style={{ left: s.x - 7, top: s.y - 27 }}
+          initial={{ scale: 0, opacity: 1, rotate: 0 }}
+          animate={{
+            scale: [0, 1.4, 0.8, 0],
+            opacity: [1, 1, 0.8, 0],
+            rotate: [0, s.rot],
+            y: [0, s.dy],
+            x: [0, s.dx],
+          }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="var(--accent)"
+            style={{ filter: "drop-shadow(0 0 4px var(--accent))" }}
+          >
+            <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" />
+          </svg>
+        </motion.div>
+      ))}
+    </AnimatePresence>
+  );
+}
