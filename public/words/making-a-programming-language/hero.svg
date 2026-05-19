@@ -1,0 +1,47 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#130f0c"/>
+  <g opacity="0.04">
+    <circle cx="200" cy="100" r="300" fill="#e8c44a"/>
+    <circle cx="900" cy="500" r="400" fill="#e8c44a"/>
+  </g>
+  <path d="M0 300 Q200 150 400 280 Q550 380 700 260 Q850 140 1000 270 Q1100 350 1200 280 L1200 600 L0 600 Z" fill="#1a1613" opacity="0.6"/>
+  <path d="M0 350 Q250 220 500 340 Q700 430 900 320 Q1050 240 1200 340 L1200 600 L0 600 Z" fill="#1a1613" opacity="0.4"/>
+  <g opacity="0.08">
+    <line x1="100" y1="480" x2="300" y2="150" stroke="#e8c44a" strokeWidth="1"/>
+    <line x1="300" y1="150" x2="550" y2="420" stroke="#e8c44a" strokeWidth="1"/>
+    <line x1="550" y1="420" x2="750" y2="180" stroke="#e8c44a" strokeWidth="1"/>
+    <line x1="750" y1="180" x2="1000" y2="400" stroke="#e8c44a" strokeWidth="1"/>
+    <line x1="1000" y1="400" x2="1150" y2="250" stroke="#e8c44a" strokeWidth="1"/>
+  </g>
+  <g opacity="0.12">
+    <circle cx="600" cy="300" r="80" stroke="#e8c44a" strokeWidth="1" fill="none" strokeDasharray="4 6"/>
+    <circle cx="600" cy="300" r="120" stroke="#e8c44a" strokeWidth="0.5" fill="none" strokeDasharray="2 8"/>
+    <circle cx="600" cy="300" r="160" stroke="#e8c44a" strokeWidth="0.5" fill="none" strokeDasharray="1 10"/>
+  </g>
+  <g opacity="0.06">
+    <circle cx="280" cy="480" r="40" stroke="#e8c44a" strokeWidth="1" fill="none"/>
+    <circle cx="920" cy="160" r="30" stroke="#e8c44a" strokeWidth="1" fill="none"/>
+  </g>
+  <g opacity="0.15">
+    <path d="M520 280 Q560 260 580 290 Q600 320 640 280" stroke="#e8c44a" strokeWidth="1.5" fill="none"/>
+    <path d="M550 310 Q580 330 610 300" stroke="#e8c44a" strokeWidth="1" fill="none"/>
+  </g>
+  <g opacity="0.04">
+    <rect x="150" y="200" width="4" height="200" rx="2" fill="#e8c44a"/>
+    <rect x="1046" y="150" width="4" height="250" rx="2" fill="#e8c44a"/>
+  </g>
+  <g opacity="0.08">
+    <polygon points="350,380 380,350 410,380 380,410" stroke="#e8c44a" strokeWidth="0.5" fill="none"/>
+    <polygon points="780,240 800,220 820,240 800,260" stroke="#e8c44a" strokeWidth="0.5" fill="none"/>
+    <polygon points="680,420 710,390 740,420 710,450" stroke="#e8c44a" strokeWidth="0.5" fill="none"/>
+  </g>
+  <g opacity="0.03">
+    <text x="90" y="80" fontFamily="Georgia, serif" fontSize="12" fill="#e8c44a">α</text>
+    <text x="1110" y="540" fontFamily="Georgia, serif" fontSize="14" fill="#e8c44a">λ</text>
+    <text x="1050" y="80" fontFamily="Georgia, serif" fontSize="10" fill="#e8c44a">∑</text>
+    <text x="140" y="550" fontFamily="Georgia, serif" fontSize="10" fill="#e8c44a">π</text>
+  </g>
+  <g opacity="0.02">
+    <rect x="400" y="100" width="400" height="400" rx="200" stroke="#e8c44a" strokeWidth="0.5" fill="none" strokeDasharray="3 15"/>
+  </g>
+</svg>

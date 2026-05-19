@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { BackButton } from "@/components/ui/back-button";
 import { projects } from "@/lib/data/projects";
 import { byDate } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -16,13 +16,7 @@ export default function WorkPage() {
   return (
     <main className="min-h-screen w-full max-w-5xl mx-auto px-6 py-16 md:py-24">
       <div className="mb-12 flex items-center gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
-        >
-          <ArrowLeftIcon className="size-4" />
-          back
-        </Link>
+        <BackButton href="/" />
       </div>
 
       <h1 className="text-[28px] md:text-[36px] font-semibold text-primary mb-2">

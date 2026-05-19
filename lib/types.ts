@@ -53,3 +53,25 @@ export interface RawCraft {
 }
 
 export type Craft = RawCraft & { slug: string };
+
+export interface RawBlog {
+  title: string;
+  description: string;
+  hero?: ProjectImage;
+  images?: ProjectImage[];
+  date: {
+    start: DateString;
+    end?: DateString;
+  };
+  tags?: string[];
+  collaborators?: Collaborator[];
+}
+
+export type Blog = RawBlog & { slug: string };
+
+export interface TocItem {
+  id: string;
+  text: string;
+  level: number;
+  children?: TocItem[];
+}

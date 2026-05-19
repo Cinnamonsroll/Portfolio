@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { PRONOUNS, DESCRIPTION, GITHUB } from "@/lib/constants";
-import { getAge } from "@/lib/age";
+import { getAge } from "@/lib/utils";
 import { AnimatedSVG } from "@/components/effects/animated-svg";
 import { Pancake } from "@/components/effects/pancake";
 
@@ -12,11 +13,11 @@ interface HeroProps {
 }
 
 export function Hero({ dimmed }: HeroProps) {
-  const age = getAge();
+  const age = useMemo(() => getAge(), []);
 
   return (
     <section
-      className={`flex flex-col gap-8 transition-all duration-300 ${dimmed ? "blur-sm opacity-40" : ""}`}
+      className={`flex flex-col gap-8 transition-all duration-300 ${dimmed ? "blur-[1.5px] opacity-40" : ""}`}
     >
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-between">
         <div className="flex-1 flex flex-col gap-3">

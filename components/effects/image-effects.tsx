@@ -6,7 +6,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 
 export function ImageEffects({ children }: { children: React.ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -41,7 +41,7 @@ export function ImageEffects({ children }: { children: React.ReactNode }) {
   const handleClick = useCallback((e: React.MouseEvent) => {
     const img = (e.target as HTMLElement).closest<HTMLImageElement>("img");
     if (!img) return;
-    setLightbox(img.src);
+    setLightbox({ src: img.src, alt: img.alt || "" });
   }, []);
 
   const closeLightbox = useCallback(() => setLightbox(null), []);
@@ -70,11 +70,14 @@ export function ImageEffects({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={closeLightbox}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeLightbox(); }}
+            role="button"
+            tabIndex={-1}
           >
             <motion.img
-              key={lightbox}
-              src={lightbox}
-              alt=""
+              key={lightbox.src}
+              src={lightbox.src}
+              alt={lightbox.alt}
               className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

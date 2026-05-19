@@ -174,19 +174,20 @@ export function StickerApp() {
       <div className="flex flex-col gap-6 touch-none">
         <div className="flex flex-wrap gap-2 p-3 bg-black/10 rounded-lg justify-center">
           {EMOJIS.map(([code, label]) => (
-            <div
+            <button
               key={code}
+              type="button"
               data-emoji={code}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
               onPointerCancel={handlePointerCancel}
               className="size-10 flex items-center justify-center rounded-md bg-black/5 hover:bg-accent/10 transition-colors duration-200 cursor-grab active:cursor-grabbing select-none"
-              title={label}
+              aria-label={label}
               style={{ touchAction: "none" }}
             >
               <StickerImg code={code} size={22} />
-            </div>
+            </button>
           ))}
         </div>
 
@@ -328,8 +329,9 @@ export function StickerApp() {
           </svg>
 
           {placed.map((s) => (
-            <div
+            <button
               key={s.id}
+              type="button"
               onClick={() => setSelectedId(s.id === selectedId ? null : s.id)}
               className="absolute cursor-grab active:cursor-grabbing select-none"
               style={{
@@ -343,9 +345,10 @@ export function StickerApp() {
                   : undefined,
               }}
               onAnimationEnd={() => endEntry(s.id)}
+              aria-label={`Sticker ${s.emoji}`}
             >
               <StickerImg code={s.emoji} size={STICKER_SZ} />
-            </div>
+            </button>
           ))}
 
           {selected && (

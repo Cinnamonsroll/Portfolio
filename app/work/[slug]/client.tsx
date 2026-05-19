@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeftIcon } from "@heroicons/react/16/solid";
-import { formatDateShort } from "@/lib/utils";
+import { BackButton } from "@/components/ui/back-button";
+import { Collaborators } from "@/components/ui/collaborators";
+import { formatDate } from "@/lib/utils";
+import { Tag } from "@/components/ui/tag";
 import type { Project } from "@/lib/types";
 import { ImageEffects } from "@/components/effects/image-effects";
 import { CodeBlock } from "@/components/markdown/code-block";
@@ -22,13 +23,7 @@ export function ProjectPageClient({ project }: Props) {
       transition={{ type: "spring", stiffness: 200, damping: 22 }}
     >
       <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-4 mb-10">
-        <Link
-          href="/"
-          className="group self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs text-muted hover:text-accent hover:border-accent/40 hover:bg-accent/4 transition-all duration-200"
-        >
-          <ArrowLeftIcon className="size-3 transition-transform duration-200 group-hover:-translate-x-0.5" />
-          <span>Back</span>
-        </Link>
+        <BackButton href="/" variant="pill" />
 
         {project.hero && (
           <div className="flex-1 overflow-hidden rounded-lg border border-border">
@@ -68,53 +63,22 @@ export function ProjectPageClient({ project }: Props) {
 
           {project.date?.start && (
             <span className="tabular-nums">
-              {formatDateShort(project.date.start)}
-              {project.date.end && ` — ${formatDateShort(project.date.end)}`}
+              {formatDate(project.date.start, true)}
+              {project.date.end && ` — ${formatDate(project.date.end, true)}`}
             </span>
           )}
 
           {project.tags.length > 0 && (
             <span className="flex items-center gap-2">
               {project.tags.map((t) => (
-                <span
-                  key={t}
-                  className="text-xs text-accent cursor-pointer hover:underline decoration-accent/30 hover:decoration-accent transition-colors"
-                >
-                  #{t}
-                </span>
+                <Tag key={t} tag={t} />
               ))}
             </span>
           )}
         </div>
 
         {project.collaborators && project.collaborators.length > 0 && (
-          <div className="flex flex-wrap items-center gap-4 mt-5">
-            {project.collaborators.map((c) => (
-              <a
-                key={c.github}
-                href={c.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 group"
-              >
-                <Image
-                  src={`https://github.com/${c.name}.png`}
-                  alt={c.name}
-                  width={28}
-                  height={28}
-                  className="size-7 rounded-full ring-2 ring-border group-hover:ring-accent/50 transition-all duration-200"
-                />
-                <div className="flex flex-col leading-tight">
-                  <span className="text-xs font-medium text-primary group-hover:text-accent transition-colors duration-200">
-                    {c.name}
-                  </span>
-                  {c.role && (
-                    <span className="text-[10px] text-muted">{c.role}</span>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
+          <Collaborators collaborators={project.collaborators} />
         )}
 
         {project.links && project.links.length > 0 && (

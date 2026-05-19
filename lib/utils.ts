@@ -1,3 +1,5 @@
+import { BIRTHDAY } from "./constants";
+
 export const STICKER_ICON = "/crafts/stickers/icon.svg";
 
 export const STICKER_OUTLINE =
@@ -10,20 +12,13 @@ export function slugify(title: string): string {
     .replace(/^-|-$/g, "");
 }
 
-export function formatDate(dateStr: string): string {
-  const d = new Date(dateStr + (dateStr.length <= 7 ? "-01" : ""));
-  return d.toLocaleDateString("en-US", {
+export function formatDate(dateStr: string, short?: boolean): string {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const date = dateStr.length <= 7 ? new Date(y, m - 1) : new Date(y, m - 1, d);
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
-    day: "numeric",
-  });
-}
-
-export function formatDateShort(dateStr: string): string {
-  const d = new Date(dateStr + (dateStr.length <= 7 ? "-01" : ""));
-  return d.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
+    ...(short ? {} : { day: "numeric" }),
   });
 }
 
@@ -34,4 +29,14 @@ export function byDate(
   const aDate = a.date?.end ?? a.date?.start ?? "";
   const bDate = b.date?.end ?? b.date?.start ?? "";
   return bDate.localeCompare(aDate);
+}
+
+export function getAge(): number {
+  const today = new Date();
+  let age = today.getFullYear() - BIRTHDAY.getFullYear();
+  const m = today.getMonth() - BIRTHDAY.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < BIRTHDAY.getDate())) {
+    age--;
+  }
+  return age;
 }

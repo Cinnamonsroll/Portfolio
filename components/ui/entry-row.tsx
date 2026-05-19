@@ -1,7 +1,8 @@
+import { memo } from "react";
 import Link from "next/link";
 import { ChevronRightIcon } from "@heroicons/react/16/solid";
 import { PolaroidStack } from "./polaroid-stack";
-import { formatDateShort } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import type { ProjectImage } from "@/lib/types";
 
 interface EntryRowProps {
@@ -16,7 +17,7 @@ interface EntryRowProps {
   onLeave?: () => void;
 }
 
-export function EntryRow({
+export const EntryRow = memo(function EntryRow({
   title,
   date,
   images,
@@ -41,7 +42,7 @@ export function EntryRow({
         </span>
       ) : date ? (
         <span className="text-[11px] text-secondary tabular-nums shrink-0 leading-none">
-          {formatDateShort(date)}
+          {formatDate(date, true)}
         </span>
       ) : null}
     </>
@@ -74,4 +75,4 @@ export function EntryRow({
       {inner}
     </div>
   );
-}
+});

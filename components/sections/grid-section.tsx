@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/lib/data/projects";
 import { crafts } from "@/lib/data/crafts";
+import { blogs } from "@/lib/data/words";
 import { STICKER_ICON, STICKER_OUTLINE, formatDate, byDate } from "@/lib/utils";
 import { SectionCard } from "./section-card";
 import { EntryRow } from "@/components/ui/entry-row";
@@ -26,6 +27,8 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
   const dimAll = focusSlug !== null;
   const sortedProjects = [...projects].sort(byDate).slice(0, 3);
   const hiddenProjects = [...projects].sort(byDate).slice(3);
+  const sortedBlogs = [...blogs].sort(byDate).slice(0, 5);
+  const hiddenBlogs = [...blogs].sort(byDate).slice(5);
 
   return (
     <motion.section
@@ -73,13 +76,43 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
                   alt: p.hero?.alt ?? p.title,
                 }))}
                 href="/work"
-                dimmed={dimAll && !active("more")}
-                isActive={active("more")}
-                onHover={() => setFocusSlug("more")}
+                dimmed={dimAll && !active("more-work")}
+                isActive={active("more-work")}
+                onHover={() => setFocusSlug("more-work")}
                 onLeave={() => setFocusSlug(null)}
               />
             )}
           </>
+        );
+        const wordsContent = title === "words" && sortedBlogs.length > 0 && (
+          <div className="flex flex-col">
+            {sortedBlogs.map((b) => (
+              <EntryRow
+                key={b.slug}
+                title={b.title}
+                date={b.date?.start}
+                images={b.hero ? [{ src: b.hero.src, alt: b.hero.alt ?? b.title }] : []}
+                href={`/words/${b.slug}`}
+                dimmed={dimAll && !active(b.slug)}
+                isActive={active(b.slug)}
+                onHover={() => setFocusSlug(b.slug)}
+                onLeave={() => setFocusSlug(null)}
+              />
+            ))}
+            <EntryRow
+              title=""
+              isMore
+              images={hiddenBlogs.map((b) => ({
+                src: b.hero?.src ?? "",
+                alt: b.hero?.alt ?? b.title,
+              }))}
+              href="/words"
+              dimmed={dimAll && !active("more-words")}
+              isActive={active("more-words")}
+              onHover={() => setFocusSlug("more-words")}
+              onLeave={() => setFocusSlug(null)}
+            />
+          </div>
         );
         const craftsContent = title === "crafts" && crafts.length > 0 && (
           <div className="flex flex-col">
@@ -122,7 +155,7 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
             ))}
           </div>
         );
-        const childContent = workContent || craftsContent || null;
+        const childContent = workContent || wordsContent || craftsContent || null;
 
         return (
           <motion.div
@@ -133,7 +166,7 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
             }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <SectionCard title={title} dimmed={dimAll && title !== "work" && title !== "crafts"}>
+            <SectionCard title={title} dimmed={dimAll && title !== "work" && title !== "words" && title !== "crafts"}>
               {childContent}
             </SectionCard>
           </motion.div>

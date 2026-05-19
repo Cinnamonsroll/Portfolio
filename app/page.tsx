@@ -14,6 +14,7 @@ export default function Home() {
         <div className="fixed inset-0 z-30 bg-bg-primary/20 backdrop-blur-sm pointer-events-none" />
       )}
       <main className="flex-1 w-full max-w-3xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-16">
+        <h1 className="sr-only">Juliette</h1>
         <Hero dimmed={focusSlug !== null} />
         <GridSection focusSlug={focusSlug} setFocusSlug={setFocusSlug} />
       </main>

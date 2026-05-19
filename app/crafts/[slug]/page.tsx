@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { BackButton } from "@/components/ui/back-button";
 import { crafts } from "@/lib/data/crafts";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -36,13 +35,7 @@ export default async function CraftPage({
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
       <div className="mb-12 flex items-center gap-4">
-        <Link
-          href="/crafts"
-          className="flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
-        >
-          <ArrowLeftIcon className="size-4" />
-          back
-        </Link>
+        <BackButton href="/crafts" />
       </div>
 
       <div className="flex items-center gap-3 mb-2">

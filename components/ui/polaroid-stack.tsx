@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Image from "next/image";
 import type { ProjectImage } from "@/lib/types";
 
@@ -20,7 +21,7 @@ const fan = [
   { x: 14, y: -14, rotate: 8 },
 ];
 
-export function PolaroidStack({ images }: PolaroidStackProps) {
+export const PolaroidStack = memo(function PolaroidStack({ images }: PolaroidStackProps) {
   if (images.length === 0) return null;
 
   const cards = images.slice(0, 3);
@@ -66,4 +67,4 @@ export function PolaroidStack({ images }: PolaroidStackProps) {
       ))}
     </div>
   );
-}
+});

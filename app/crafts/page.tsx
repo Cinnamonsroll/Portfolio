@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { BackButton } from "@/components/ui/back-button";
 import { crafts } from "@/lib/data/crafts";
 import { STICKER_ICON, STICKER_OUTLINE, formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -18,13 +18,9 @@ export default function CraftsPage() {
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
       <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-4 mb-12">
-        <Link
-          href="/"
-          className="group self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs text-muted hover:text-accent hover:border-accent/40 hover:bg-accent/4 transition-all duration-200 md:mt-1"
-        >
-          <ArrowLeftIcon className="size-3 transition-transform duration-200 group-hover:-translate-x-0.5" />
-          <span>Back</span>
-        </Link>
+        <div className="md:mt-1">
+          <BackButton href="/" variant="pill" />
+        </div>
 
         <div className="flex-1 overflow-hidden rounded-lg border border-border">
           <Image

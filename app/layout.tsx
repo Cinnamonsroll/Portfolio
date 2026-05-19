@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { NAME, DESCRIPTION } from "@/lib/constants";
-import "highlight.js/styles/github-dark.css";
 import "./globals.css";
 
 const fontSans = Plus_Jakarta_Sans({

@@ -9,4 +9,4 @@ export const DESCRIPTION = [
   "and will graduate in 2026 to finish my bachelor's degree in K-12 French teaching.",
 ].join(" ");
 export const GITHUB = "https://github.com/Cinnamonsroll";
-export const LAST_UPDATED = new Date(2026, 4, 15);
+export const LAST_UPDATED = new Date(2026, 4, 18);
