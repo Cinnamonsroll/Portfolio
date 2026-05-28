@@ -15,6 +15,9 @@ const project: RawProject = {
     { name: "Website", url: "https://trigr.pancake.wtf" },
     { name: "GitHub", url: "https://github.com/TrigrApp" },
   ],
+  collaborators: [
+    { name: "null8626", github: "https://github.com/null8626", role: "Github contributor" },
+  ],
   status: "active",
 };
 
