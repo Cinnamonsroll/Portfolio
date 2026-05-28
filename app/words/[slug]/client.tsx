@@ -257,7 +257,9 @@ export function BlogPageClient({ blog }: Props) {
                 </div>
 
                 {blog.collaborators && blog.collaborators.length > 0 && (
-                  <Collaborators collaborators={blog.collaborators} />
+                  <div className="mt-4">
+                    <Collaborators collaborators={blog.collaborators} />
+                  </div>
                 )}
               </header>
 

@@ -10,7 +10,7 @@ export const Collaborators = memo(function Collaborators({ collaborators }: Coll
   if (collaborators.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-4 mt-5">
+    <div className="flex flex-wrap items-center gap-4">
       {collaborators.map((c) => (
         <a
           key={c.github}
