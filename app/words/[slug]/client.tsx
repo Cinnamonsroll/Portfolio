@@ -10,6 +10,7 @@ import { Collaborators } from "@/components/ui/collaborators";
 import { formatDate } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
 import { LanguageRunner } from "@/components/language-runner";
+import { CodeBlock } from "@/components/markdown/code-block";
 import { blogs } from "@/lib/data/words";
 import type { Blog, TocItem } from "@/lib/types";
 
@@ -171,12 +172,12 @@ function SeriesNav({ slug }: { slug: string }) {
   const nextBlog = nextSlug ? blogs.find((b) => b.slug === nextSlug) : null;
 
   return (
-    <nav className="mt-10 pt-6 border-t border-border flex items-center justify-between gap-4">
-      <div className="flex-1">
+    <nav className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center sm:justify-between gap-4">
+      <div className="text-center sm:text-left sm:flex-1">
         {prevBlog && (
           <Link
             href={`/words/${prevSlug}`}
-            className="group flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
+            className="group inline-flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
           >
             <ChevronLeftIcon className="size-4 shrink-0 transition-transform duration-200 group-hover:-translate-x-0.5" />
             <div className="min-w-0">
@@ -186,11 +187,11 @@ function SeriesNav({ slug }: { slug: string }) {
           </Link>
         )}
       </div>
-      <div className="flex-1 text-right">
+      <div className="text-center sm:text-right sm:flex-1">
         {nextBlog && (
           <Link
             href={`/words/${nextSlug}`}
-            className="group flex items-center justify-end gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
+            className="group inline-flex items-center gap-2 text-sm text-secondary hover:text-accent transition-colors duration-200"
           >
             <div className="min-w-0">
               <div className="text-[11px] text-muted">Next</div>
@@ -263,10 +264,12 @@ export function BlogPageClient({ blog }: Props) {
                 )}
               </header>
 
-              <div
-                className="prose-custom flex flex-col gap-2"
-                dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
-              />
+              <CodeBlock>
+                <div
+                  className="prose-custom flex flex-col gap-2"
+                  dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
+                />
+              </CodeBlock>
 
               <SeriesNav slug={blog.slug} />
 

@@ -9,4 +9,10 @@ export const DESCRIPTION = [
   "and will graduate in 2026 to finish my bachelor's degree in K-12 French teaching.",
 ].join(" ");
 export const GITHUB = "https://github.com/Cinnamonsroll";
-export const LAST_UPDATED = new Date(2026, 4, 28);
+export const LAST_UPDATED = new Date(2026, 5, 14);
+
+export const EMAIL = "rubiksking124@gmail.com";
+export const DISCORD = "star__sailor";
+export const KOFI = "https://ko-fi.com/star__sailor";
+export const LINKEDIN = "https://www.linkedin.com/in/starssailor";
+export const X = "https://x.com/Cinnamo44817432";

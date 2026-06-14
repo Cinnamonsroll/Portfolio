@@ -7,12 +7,7 @@ interface SectionCardProps {
   dimmed?: boolean;
 }
 
-const comingSoonMap: Record<string, { label: string; description: string }> = {
-  more: {
-    label: "something new",
-    description: "A little surprise is on the way.",
-  },
-};
+const comingSoonMap: Record<string, { label: string; description: string }> = {};
 
 export function SectionCard({ title, children, dimmed }: SectionCardProps) {
   const cs = comingSoonMap[title];
