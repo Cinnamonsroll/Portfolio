@@ -9,7 +9,7 @@ export const DESCRIPTION = [
   "and will graduate in 2026 to finish my bachelor's degree in K-12 French teaching.",
 ].join(" ");
 export const GITHUB = "https://github.com/Cinnamonsroll";
-export const LAST_UPDATED = new Date(2026, 5, 21);
+export const LAST_UPDATED = new Date(2026, 5, 25);
 
 export const EMAIL = "rubiksking124@gmail.com";
 export const DISCORD = "star__sailor";

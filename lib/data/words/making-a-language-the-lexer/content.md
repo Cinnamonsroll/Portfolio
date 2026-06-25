@@ -8,12 +8,16 @@ The lexer reads source code character by character and groups them into tokens. 
 // lib/language/lexer.ts
 const KEYWORDS: Record<string, TokenType> = {
   val: TokenType.Let,
+  not: TokenType.Bang,
+  and: TokenType.And,
+  or: TokenType.Or,
   when: TokenType.If,
   else: TokenType.Else,
   func: TokenType.Fn,
   return: TokenType.Return,
   yes: TokenType.True,
   no: TokenType.False,
+  nil: TokenType.Nil,
 };
 ```
 

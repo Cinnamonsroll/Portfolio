@@ -160,6 +160,17 @@ function evaluateBinary(
   expr: BinaryExpression,
   env: Environment,
 ): RuntimeValue {
+  if (expr.operator === "and") {
+    const left = evaluateExpression(expr.left, env);
+    if (!isTruthy(left)) return left;
+    return evaluateExpression(expr.right, env);
+  }
+  if (expr.operator === "or") {
+    const left = evaluateExpression(expr.left, env);
+    if (isTruthy(left)) return left;
+    return evaluateExpression(expr.right, env);
+  }
+
   const left = evaluateExpression(expr.left, env);
   const right = evaluateExpression(expr.right, env);
 

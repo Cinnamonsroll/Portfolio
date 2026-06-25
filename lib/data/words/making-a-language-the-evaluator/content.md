@@ -302,6 +302,8 @@ The range operator `..` (inspired by Rust) creates an array of consecutive numbe
 
 The `+` operator is overloaded: adds numbers, concatenates strings, merges arrays, and coerces mixed types to strings. Other operators like `-`, `*`, `/`, and comparisons all enforce numeric types.
 
+`and` and `or` use **short-circuit evaluation**. `a and b` evaluates `a` first; if it's falsy, it returns `a` without evaluating `b`. `a or b` evaluates `a` first; if it's truthy, it returns `a` without evaluating `b`. This means `say("hi") or 5` never calls `say` because `or` short-circuits on the first truthy value.
+
 ```typescript
 // lib/language/evaluator.ts
 

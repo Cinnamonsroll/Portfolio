@@ -297,25 +297,28 @@ private parseIndexSuffix(array: Expression): Expression {
 // lib/language/parser.ts
 private getPrecedence(type: TokenType): number {
   switch (type) {
-    case TokenType.DotDot:
+    case TokenType.Or:
       return 1;
+    case TokenType.And:
+    case TokenType.DotDot:
+      return 2;
     case TokenType.EqEq:
     case TokenType.BangEq:
-      return 2;
+      return 3;
     case TokenType.Lt:
     case TokenType.Gt:
     case TokenType.LtEq:
     case TokenType.GtEq:
-      return 3;
+      return 4;
     case TokenType.Plus:
     case TokenType.Minus:
-      return 4;
+      return 5;
     case TokenType.Star:
     case TokenType.Slash:
-      return 5;
+      return 6;
     case TokenType.LParen:
     case TokenType.LBracket:
-      return 7;
+      return 8;
     default:
       return 0;
   }
@@ -323,17 +326,19 @@ private getPrecedence(type: TokenType): number {
 
 private getPrecedenceFromOp(op: string): number {
   const map: Record<string, number> = {
-    "..": 1,
-    "==": 2,
-    "!=": 2,
-    "<": 3,
-    ">": 3,
-    "<=": 3,
-    ">=": 3,
-    "+": 4,
-    "-": 4,
-    "*": 5,
-    "/": 5,
+    "or": 1,
+    "and": 2,
+    "..": 2,
+    "==": 3,
+    "!=": 3,
+    "<": 4,
+    ">": 4,
+    "<=": 4,
+    ">=": 4,
+    "+": 5,
+    "-": 5,
+    "*": 6,
+    "/": 6,
   };
   return map[op] ?? 0;
 }
@@ -343,11 +348,12 @@ The precedence table is split into two lookup methods. `getPrecedence` maps toke
 
 | Operators | Precedence |
 |-----------|-----------|
-| `..`      | 1 (range) |
-| `==` `!=` | 2 (comparison) |
-| `<` `>` `<=` `>=` | 3 (relational) |
-| `+` `-` | 4 (addition) |
-| `*` `/` | 5 (multiplication) |
-| `()` `[]` | 7 (call/index) |
+| `or`      | 1 (logical or) |
+| `and` `..` | 2 (logical and / range) |
+| `==` `!=` | 3 (comparison) |
+| `<` `>` `<=` `>=` | 4 (relational) |
+| `+` `-` | 5 (addition) |
+| `*` `/` `%` | 6 (multiplication) |
+| `()` `[]` | 8 (call/index) |
 
 In the [next part](/words/making-a-language-the-evaluator), we'll build the evaluator, the component that actually walks the AST and produces output.

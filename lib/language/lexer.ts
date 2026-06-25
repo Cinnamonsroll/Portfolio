@@ -3,6 +3,8 @@ import { TokenType, type Token } from "./types";
 const KEYWORDS: Record<string, TokenType> = {
   val: TokenType.Let,
   not: TokenType.Bang,
+  and: TokenType.And,
+  or: TokenType.Or,
   when: TokenType.If,
   else: TokenType.Else,
   func: TokenType.Fn,

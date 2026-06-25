@@ -54,6 +54,7 @@ export enum TokenType {
   Number, String, Identifier,
   Let, If, Else, Fn, Return, Print,
   True, False,
+  And, Or,
   Plus, Minus, Star, Slash,
   Eq, EqEq, Bang, BangEq,
   Lt, Gt, LtEq, GtEq,
@@ -198,7 +199,7 @@ export interface ArrayLiteral {
 }
 ```
 
-The `operator` field on `BinaryExpression` is a string like `"+"`, `"-"`, `"=="`, or `".."` for ranges. This keeps the parser simple: it just records the operator text and lets the evaluator decide what each operator means.
+The `operator` field on `BinaryExpression` is a string like `"+"`, `"-"`, `"=="`, `".."` for ranges, or `"and"`/`"or"` for logical combination. This keeps the parser simple: it just records the operator text and lets the evaluator decide what each operator means.
 
 ## Indexing, Calls, and Assignment
 

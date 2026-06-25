@@ -11,6 +11,8 @@ export enum TokenType {
   True,
   False,
   Nil,
+  And,
+  Or,
   Plus,
   Minus,
   Star,

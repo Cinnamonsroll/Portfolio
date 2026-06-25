@@ -5,7 +5,7 @@ import { COPY_ICON } from "./icons";
 
 hljs.registerLanguage("spark", function (hljs) {
   const KEYWORDS = {
-    keyword: "val func when else return say not",
+    keyword: "val func when else return say not and or",
     literal: "yes no nil",
   };
   return {

@@ -122,6 +122,26 @@ say("fib(10) =", fib(10))
 
 Two-branch recursion: each call spawns two more until the base case.
 
+### Logical Operators
+
+```
+val age = 17
+val has_permission = yes
+
+when (age >= 18 and has_permission) {
+  say("access granted")
+} else {
+  say("access denied")
+}
+
+say("0 and 5:", 0 and 5)
+say("3 and 5:", 3 and 5)
+say("0 or 5:", 0 or 5)
+say("3 or 5:", 3 or 5)
+```
+
+`and` and `or` use short-circuit evaluation. `0 and 5` returns `0` (falsy, so `5` is never evaluated). `3 or 5` returns `3` (truthy, short-circuits). This lets you write concise condition checks.
+
 ### FizzBuzz
 
 ```
@@ -209,6 +229,8 @@ loop (i < 5) {
 }
 ```
 
-That's all it takes. Every feature follows the same recipe: a token in the lexer, a node in the parser, and a handler in the evaluator. Try it yourself. Break things. Change the syntax. Add features. Now that you know how the pieces fit together, you're not just a language user. You're a language designer.
+That's all it takes. Every feature follows the same recipe: a token in the lexer, a node in the parser, and a handler in the evaluator. Spark's `and` and `or` operators were added exactly this way — two new token types, two precedence entries, and two short-circuit evaluations.
+
+Try it yourself. Break things. Change the syntax. Add features. Now that you know how the pieces fit together, you're not just a language user. You're a language designer.
 
 The full source code for Spark is available on [GitHub](https://github.com/Cinnamonsroll/Portfolio/tree/main/lib/language).

@@ -315,26 +315,29 @@ class Parser {
 
   private getPrecedence(type: TokenType): number {
     switch (type) {
-      case TokenType.DotDot:
+      case TokenType.Or:
         return 1;
+      case TokenType.And:
+      case TokenType.DotDot:
+        return 2;
       case TokenType.EqEq:
       case TokenType.BangEq:
-        return 2;
+        return 3;
       case TokenType.Lt:
       case TokenType.Gt:
       case TokenType.LtEq:
       case TokenType.GtEq:
-        return 3;
+        return 4;
       case TokenType.Plus:
       case TokenType.Minus:
-        return 4;
+        return 5;
       case TokenType.Star:
       case TokenType.Slash:
       case TokenType.Percent:
-        return 5;
+        return 6;
       case TokenType.LParen:
       case TokenType.LBracket:
-        return 7;
+        return 8;
       default:
         return 0;
     }
@@ -342,18 +345,20 @@ class Parser {
 
   private getPrecedenceFromOp(op: string): number {
     const map: Record<string, number> = {
-      "..": 1,
-      "==": 2,
-      "!=": 2,
-      "<": 3,
-      ">": 3,
-      "<=": 3,
-      ">=": 3,
-      "+": 4,
-      "-": 4,
-      "*": 5,
-      "/": 5,
-      "%": 5,
+      "or": 1,
+      "and": 2,
+      "..": 2,
+      "==": 3,
+      "!=": 3,
+      "<": 4,
+      ">": 4,
+      "<=": 4,
+      ">=": 4,
+      "+": 5,
+      "-": 5,
+      "*": 6,
+      "/": 6,
+      "%": 6,
     };
     return map[op] ?? 0;
   }

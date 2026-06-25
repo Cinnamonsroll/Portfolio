@@ -6,7 +6,7 @@ import hljs from "highlight.js";
 
 hljs.registerLanguage("spark", function (hljs) {
   const KEYWORDS = {
-    keyword: "val func when else return say not",
+    keyword: "val func when else return say not and or",
     literal: "yes no nil",
   };
   return {
@@ -67,6 +67,14 @@ say("not 1:", not 1)
 val empty_arr = []
 say("not []:", not empty_arr)
 say("not [1]:", not [1])
+
+// --- logical and / or ---
+say("yes and no:", yes and no)
+say("yes or no:", yes or no)
+say("0 and 5:", 0 and 5)
+say("3 and 5:", 3 and 5)
+say("0 or 5:", 0 or 5)
+say("3 or 5:", 3 or 5)
 
 // --- nil ---
 val n = nil
