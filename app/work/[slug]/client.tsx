@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { BackButton } from "@/components/ui/back-button";
 import { formatDate } from "@/lib/utils";
 import { Collaborators } from "@/components/ui/collaborators";
@@ -16,11 +15,8 @@ interface Props {
 
 export function ProjectPageClient({ project }: Props) {
   return (
-    <motion.main
-      className="min-h-screen w-full max-w-2xl mx-auto px-6 py-16 md:py-24"
-      initial={{ scale: 0.95, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 200, damping: 22 }}
+    <main
+      className="min-h-screen w-full max-w-2xl mx-auto px-6 py-16 md:py-24 page-enter"
     >
       <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-4 mb-10">
         <BackButton href="/" variant="pill" />
@@ -110,6 +106,6 @@ export function ProjectPageClient({ project }: Props) {
           </CodeBlock>
         </ImageEffects>
       )}
-    </motion.main>
+    </main>
   );
 }

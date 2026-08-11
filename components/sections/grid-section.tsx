@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/lib/data/projects";
@@ -105,7 +104,7 @@ const contactMethods = [
   },
   {
     label: "Discord",
-    value: "star__sailor",
+    value: DISCORD,
     href: "",
     colSpan: false,
     copy: true,
@@ -173,15 +172,8 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
   }
 
   return (
-    <motion.section
-      className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6"
-      initial="hidden"
-      animate="visible"
-      variants={{
-        visible: { transition: { staggerChildren: 0.08 } },
-      }}
-    >
-      {cards.map(({ title, key }) => {
+    <section className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-40">
+      {cards.map(({ title, key }, index) => {
         const workContent = title === "work" && (
           <>
             {sortedProjects.length > 0 ? (
@@ -211,6 +203,7 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
               <EntryRow
                 title=""
                 isMore
+                moreLabel="More work"
                 images={hiddenProjects.map((p) => ({
                   src: p.hero?.src ?? "",
                   alt: p.hero?.alt ?? p.title,
@@ -247,6 +240,7 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
             <EntryRow
               title=""
               isMore
+              moreLabel="More words"
               images={hiddenBlogs.map((b) => ({
                 src: b.hero?.src ?? "",
                 alt: b.hero?.alt ?? b.title,
@@ -338,33 +332,21 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
                     className={`size-7 rounded-md bg-black/20 flex items-center justify-center transition-colors shrink-0 backdrop-blur-sm
                     ${isCopied ? "text-accent" : "text-muted group-hover:text-accent"}`}
                   >
-                    <AnimatePresence mode="wait" initial={false}>
-                      <motion.span
-                        key={isCopied ? "check" : "icon"}
-                        initial={{ opacity: 0, scale: 0.7 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.7 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="flex items-center justify-center"
-                      >
-                        {isCopied ? checkIcon : m.icon}
-                      </motion.span>
-                    </AnimatePresence>
+                    <span
+                      key={isCopied ? "check" : "icon"}
+                      className="flex items-center justify-center swap-in"
+                    >
+                      {isCopied ? checkIcon : m.icon}
+                    </span>
                   </span>
 
                   <div className="min-w-0">
-                    <AnimatePresence mode="wait" initial={false}>
-                      <motion.div
-                        key={isCopied ? "copied-label" : "label"}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        className={`text-[13px] font-medium leading-snug ${isCopied ? "text-accent" : "text-primary"}`}
-                      >
-                        {isCopied ? "copied" : m.label}
-                      </motion.div>
-                    </AnimatePresence>
+                    <span
+                      key={isCopied ? "copied-label" : "label"}
+                      className={`block text-[13px] font-medium leading-snug swap-in ${isCopied ? "text-accent" : "text-primary"}`}
+                    >
+                      {isCopied ? "copied" : m.label}
+                    </span>
                     <div className="text-[11px] text-muted truncate leading-snug">
                       {m.value}
                     </div>
@@ -383,13 +365,10 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
           null;
 
         return (
-          <motion.div
+          <div
             key={key}
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="card-enter"
+            style={{ animationDelay: `${index * 0.08}s` }}
           >
             <SectionCard
               title={title}
@@ -403,9 +382,9 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
             >
               {childContent}
             </SectionCard>
-          </motion.div>
+          </div>
         );
       })}
-    </motion.section>
+    </section>
   );
 }

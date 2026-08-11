@@ -11,6 +11,7 @@ interface EntryRowProps {
   images?: ProjectImage[];
   href?: string;
   isMore?: boolean;
+  moreLabel?: string;
   dimmed?: boolean;
   isActive?: boolean;
   onHover?: () => void;
@@ -23,6 +24,7 @@ export const EntryRow = memo(function EntryRow({
   images,
   href,
   isMore,
+  moreLabel = "More",
   dimmed,
   isActive,
   onHover,
@@ -33,7 +35,7 @@ export const EntryRow = memo(function EntryRow({
       {images && images.length > 0 && <PolaroidStack images={images} />}
 
       <span className="flex-1 text-sm leading-none transition-colors duration-200 group-hover:text-accent">
-        {isMore ? "More" : title}
+        {isMore ? moreLabel : title}
       </span>
 
       {isMore ? (

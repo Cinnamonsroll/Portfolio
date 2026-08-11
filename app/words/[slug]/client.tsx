@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { BackButton } from "@/components/ui/back-button";
 import { Collaborators } from "@/components/ui/collaborators";
@@ -209,11 +208,8 @@ export function BlogPageClient({ blog }: Props) {
   return (
     <>
       <ProgressBar />
-      <motion.main
-        className="min-h-screen w-full px-6 py-16 md:py-24"
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 200, damping: 22 }}
+      <main
+        className="min-h-screen w-full px-6 py-16 md:py-24 page-enter"
       >
         <div className="mx-auto max-w-5xl">
           <div className="mb-10">
@@ -285,7 +281,7 @@ export function BlogPageClient({ blog }: Props) {
             )}
           </div>
         </div>
-      </motion.main>
+      </main>
     </>
   );
 }

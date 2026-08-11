@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useMemo } from "react";
-import { motion } from "framer-motion";
 import { PRONOUNS, DESCRIPTION, GITHUB } from "@/lib/constants";
 import { getAge } from "@/lib/utils";
 import { AnimatedSVG } from "@/components/effects/animated-svg";
@@ -25,23 +24,13 @@ export function Hero({ dimmed }: HeroProps) {
             <AnimatedSVG />
           </div>
 
-          <motion.p
-            className="text-secondary text-sm md:text-base leading-relaxed max-w-md"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+          <p className="text-secondary text-sm md:text-base leading-relaxed max-w-md rise-in rise-in-delay-1">
             {DESCRIPTION}
             <Pancake />
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div
-          className="flex flex-row md:flex-col items-center md:items-end gap-3 shrink-0"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
+        <div className="flex flex-row md:flex-col items-center md:items-end gap-3 shrink-0 rise-in rise-in-delay-2">
           <a
             href={GITHUB}
             target="_blank"
@@ -51,6 +40,7 @@ export function Hero({ dimmed }: HeroProps) {
             <Image
               src={"/juliette.png"}
               alt="Juliette"
+              loading="eager"
               width={598}
               height={1141}
               className="size-24 md:size-62.5 object-cover object-top"
@@ -61,7 +51,7 @@ export function Hero({ dimmed }: HeroProps) {
             <span className="text-primary font-medium">{age} years</span>
             <span className="text-muted">{PRONOUNS}</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

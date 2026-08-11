@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface Spark {
   id: number;
@@ -70,22 +69,18 @@ export function Sparkles({ hovered, parentRef }: SparklesProps) {
   }, [hovered]);
 
   return (
-    <AnimatePresence>
+    <>
       {sparks.map((s) => (
-        <motion.div
+        <div
           key={s.id}
-          className="absolute pointer-events-none z-10"
-          style={{ left: s.x - 7, top: s.y - 27 }}
-          initial={{ scale: 0, opacity: 1, rotate: 0 }}
-          animate={{
-            scale: [0, 1.4, 0.8, 0],
-            opacity: [1, 1, 0.8, 0],
-            rotate: [0, s.rot],
-            y: [0, s.dy],
-            x: [0, s.dx],
+          className="spark"
+          style={{
+            left: s.x - 7,
+            top: s.y - 27,
+            ["--sx" as string]: `${s.dx}px`,
+            ["--sy" as string]: `${s.dy}px`,
+            ["--sr" as string]: `${s.rot}deg`,
           }}
-          exit={{ scale: 0, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <svg
             width="14"
@@ -96,8 +91,8 @@ export function Sparkles({ hovered, parentRef }: SparklesProps) {
           >
             <path d="M7 0 L8.5 5.5 L14 7 L8.5 8.5 L7 14 L5.5 8.5 L0 7 L5.5 5.5 Z" />
           </svg>
-        </motion.div>
+        </div>
       ))}
-    </AnimatePresence>
+    </>
   );
 }

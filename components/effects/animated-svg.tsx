@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
 import { Sparkles } from "./sparkles";
 
 export function AnimatedSVG() {
@@ -38,7 +37,7 @@ export function AnimatedSVG() {
         className="w-full h-8 md:h-10 overflow-visible"
       >
         {paths.map((d, i) => (
-          <motion.path
+          <path
             key={i}
             d={d}
             fill="none"
@@ -46,9 +45,9 @@ export function AnimatedSVG() {
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.08 }}
+            pathLength={1}
+            className="svg-draw"
+            style={{ animationDelay: `${i * 0.08}s` }}
           />
         ))}
       </svg>

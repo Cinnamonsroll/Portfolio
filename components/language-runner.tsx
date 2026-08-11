@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useMemo, memo } from "react";
 import { run } from "@/lib/language";
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
 
 hljs.registerLanguage("spark", function (hljs) {
   const KEYWORDS = {
