@@ -9,7 +9,7 @@ import { blogs } from "@/lib/data/words";
 import { STICKER_ICON, STICKER_OUTLINE, formatDate, byDate } from "@/lib/utils";
 import { SectionCard } from "./section-card";
 import { EntryRow } from "@/components/ui/entry-row";
-import { EMAIL, DISCORD, GITHUB, KOFI, LINKEDIN, X } from "@/lib/constants";
+import { EMAIL, DISCORD, GITHUB, KOFI, LINKEDIN, WCA, X } from "@/lib/constants";
 
 const cards = [
   { title: "work" as const, key: "work" },
@@ -28,7 +28,7 @@ const contactMethods = [
     label: "Email",
     value: EMAIL,
     href: "",
-    colSpan: true,
+    featured: true,
     copy: true,
     gradient:
       "linear-gradient(135deg, rgba(234,67,53,0.15), rgba(251,188,5,0.08))",
@@ -53,7 +53,7 @@ const contactMethods = [
     label: "GitHub",
     value: "Cinnamonsroll",
     href: GITHUB,
-    colSpan: false,
+
     gradient:
       "linear-gradient(135deg, rgba(36,41,47,0.2), rgba(88,96,110,0.1))",
     icon: (
@@ -71,7 +71,7 @@ const contactMethods = [
     label: "X",
     value: "@Cinnamo44817432",
     href: X,
-    colSpan: false,
+
     gradient: "linear-gradient(135deg, rgba(0,0,0,0.2), rgba(29,161,242,0.1))",
     icon: (
       <svg
@@ -88,7 +88,7 @@ const contactMethods = [
     label: "LinkedIn",
     value: "starssailor",
     href: LINKEDIN,
-    colSpan: false,
+
     gradient:
       "linear-gradient(135deg, rgba(0,119,181,0.18), rgba(10,156,186,0.08))",
     icon: (
@@ -106,7 +106,7 @@ const contactMethods = [
     label: "Discord",
     value: DISCORD,
     href: "",
-    colSpan: false,
+
     copy: true,
     gradient:
       "linear-gradient(135deg, rgba(88,101,242,0.18), rgba(71,82,196,0.08))",
@@ -125,7 +125,7 @@ const contactMethods = [
     label: "Ko-fi",
     value: "star__sailor",
     href: KOFI,
-    colSpan: true,
+
     gradient:
       "linear-gradient(135deg, rgba(255,94,91,0.15), rgba(255,154,91,0.08))",
     icon: (
@@ -137,6 +137,24 @@ const contactMethods = [
       >
         <path d="M23.881 8.948c-.524-.547-1.175-.643-1.987-.643h-1.174l-.165-.645c-.256-.98-.849-1.483-1.83-1.483H4.921c-.281 0-.576.05-.835.129l-.06-.026a5.82 5.82 0 0 0-.524 1.549c-.406 1.626-.225 3.338.466 4.606.617 1.145 1.617 1.94 2.755 2.215.652.159 1.345.182 1.998.145.848 1.542 2.314 2.146 4.376 2.146H12.4c.295 0 .593-.017.888-.053.64 1.237 1.302 2.318 1.626 3.913.175.98.284 1.972.284 2.963 0 .615.088 1.078.634 1.078.537 0 1.04-.397 1.04-1.105 0-1.515-.287-3.027-.734-4.439-.468-1.458-1.05-2.574-1.764-3.722.134-.066.265-.14.393-.224 2.086-.796 4.406-1.175 6.496-1.526.383-.062.745-.249 1.036-.523.763-.718 1.02-1.637.902-2.652-.049-.442-.214-.868-.488-1.211zm-2.488 2.616c-.314.284-.73.453-1.17.52a33.62 33.62 0 0 0-3.65.58c-.258.053-.514.106-.764.167-1.325.394-2.512.926-3.518 1.51-.381.22-.72.436-.998.666-.058.046-.107.096-.153.148-.165.19-.221.442-.17.691.174.592.646.925 1.407 1.028.44.06.877.068 1.31.07.096 0 .193-.003.29-.008.44 1.261.87 2.26 1.185 3.2.306.887.436 1.777.436 2.664 0 .394.084.676.276.868.296.296.691.296 1.134.296.795 0 1.35-.49 1.35-1.252 0-.873-.177-1.721-.437-2.549-.292-.906-.663-1.701-1.031-2.517-.135.038-.272.073-.41.104-.688.152-1.204.285-1.527.396-.51.17-.785.241-1.048.143-.165-.061-.316-.197-.447-.444-.129-.245-.187-.555-.187-.934 0-.581.12-1.085.354-1.498.741-1.299 2.029-1.6 3.499-1.867l.548-.1c.904-.166 1.69-.248 2.471-.25.532 0 .967.075 1.327.23.437.187.677.474.758.911.062.333-.02.672-.249.938z" />
       </svg>
+    ),
+  },
+  {
+    label: "WCA",
+    value: "2018JOHN11",
+    href: WCA,
+
+    gradient:
+      "linear-gradient(135deg, rgba(0,81,186,0.18), rgba(255,211,19,0.08))",
+    icon: (
+      <Image
+        src="/wca.svg"
+        alt="WCA"
+        width={265}
+        height={265}
+        unoptimized
+        className="size-4"
+      />
     ),
   },
 ];
@@ -301,59 +319,91 @@ export function GridSection({ focusSlug, setFocusSlug }: GridSectionProps) {
         );
 
         const contactContent = title === "Contact me" && (
-          <div className="grid grid-cols-2 gap-2">
-            {contactMethods.map((m) => {
-              const isCopied = copied === m.label;
-              const Tag = m.copy ? "button" : "a";
-              const extraProps = m.copy
-                ? {
-                    type: "button" as const,
-                    onClick: () => handleCopy(m.label, m.value),
-                  }
-                : {
-                    href: m.href,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  };
-
-              return (
-                <Tag
-                  key={m.label}
-                  className={`group relative flex items-center gap-3 p-2.5 rounded-lg border transition-all duration-200 text-left overflow-hidden
-                    ${isCopied ? "border-accent/40" : "border-border hover:border-accent/60"}
-                    ${m.colSpan ? "col-span-2" : ""}
-                    ${m.copy ? "cursor-pointer" : ""}
-                    ${dimAll && !active(m.href) ? "blur-[1.5px] opacity-40" : ""}
-                    ${active(m.href) ? "z-40" : ""}`}
-                  style={{ background: m.gradient }}
-                  {...extraProps}
-                >
-                  <span
-                    className={`size-7 rounded-md bg-black/20 flex items-center justify-center transition-colors shrink-0 backdrop-blur-sm
-                    ${isCopied ? "text-accent" : "text-muted group-hover:text-accent"}`}
+          <div className="flex flex-col gap-2">
+            {contactMethods
+              .filter((m) => m.featured)
+              .map((m) => {
+                const isCopied = copied === m.label;
+                return (
+                  <button
+                    key={m.label}
+                    type="button"
+                    onClick={() => handleCopy(m.label, m.value)}
+                    className={`group relative flex items-center gap-3 p-3 rounded-lg border transition-all duration-200 text-left overflow-hidden cursor-pointer
+                      ${isCopied ? "border-accent/40" : "border-border hover:border-accent/60"}`}
+                    style={{ background: m.gradient }}
                   >
                     <span
-                      key={isCopied ? "check" : "icon"}
-                      className="flex items-center justify-center swap-in"
+                      className={`size-7 rounded-md bg-black/20 flex items-center justify-center transition-colors shrink-0 backdrop-blur-sm
+                      ${isCopied ? "text-accent" : "text-muted group-hover:text-accent"}`}
                     >
-                      {isCopied ? checkIcon : m.icon}
+                      <span
+                        key={isCopied ? "check" : "icon"}
+                        className="flex items-center justify-center swap-in"
+                      >
+                        {isCopied ? checkIcon : m.icon}
+                      </span>
                     </span>
-                  </span>
 
-                  <div className="min-w-0">
-                    <span
-                      key={isCopied ? "copied-label" : "label"}
-                      className={`block text-[13px] font-medium leading-snug swap-in ${isCopied ? "text-accent" : "text-primary"}`}
-                    >
-                      {isCopied ? "copied" : m.label}
-                    </span>
-                    <div className="text-[11px] text-muted truncate leading-snug">
-                      {m.value}
+                    <div className="min-w-0">
+                      <span
+                        key={isCopied ? "copied-label" : "label"}
+                        className={`block text-[13px] font-medium leading-snug swap-in ${isCopied ? "text-accent" : "text-primary"}`}
+                      >
+                        {isCopied ? "copied" : m.label}
+                      </span>
+                      <div className="text-[11px] text-muted truncate leading-snug">
+                        {isCopied ? "copied to clipboard" : m.value}
+                      </div>
                     </div>
-                  </div>
-                </Tag>
-              );
-            })}
+                  </button>
+                );
+              })}
+
+            <div className="grid grid-cols-3 gap-2">
+              {contactMethods
+                .filter((m) => !m.featured)
+                .map((m) => {
+                  const isCopied = copied === m.label;
+                  const Tag = m.copy ? "button" : "a";
+                  const extraProps = m.copy
+                    ? {
+                        type: "button" as const,
+                        onClick: () => handleCopy(m.label, m.value),
+                      }
+                    : {
+                        href: m.href,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      };
+
+                  return (
+                    <Tag
+                      key={m.label}
+                      aria-label={`${m.label}: ${m.value}`}
+                      className="group relative flex h-16 flex-col items-center justify-center rounded-lg border border-border transition-all duration-200 hover:border-accent/60 cursor-pointer"
+                      style={{ background: m.gradient }}
+                      {...extraProps}
+                    >
+                      <span
+                        className={`absolute inset-0 flex items-center justify-center transition-all duration-200 group-hover:-translate-y-1.5 ${isCopied ? "text-accent" : "text-muted group-hover:text-accent"}`}
+                      >
+                        <span
+                          key={isCopied ? "check" : "icon"}
+                          className="flex items-center justify-center swap-in"
+                        >
+                          {isCopied ? checkIcon : m.icon}
+                        </span>
+                      </span>
+                      <span
+                        className={`absolute inset-x-1 bottom-1.5 block truncate px-1 text-center text-[10px] leading-none transition-opacity duration-200 ${isCopied ? "text-accent opacity-100" : "text-muted opacity-0 group-hover:opacity-100"}`}
+                      >
+                        {isCopied ? "copied" : m.value}
+                      </span>
+                    </Tag>
+                  );
+                })}
+            </div>
           </div>
         );
 
