@@ -15,7 +15,6 @@ export default function Home() {
   if (!apiKey) {
     throw new Error("NEXT_PUBLIC_VANTA_API_KEY is not configured");
   }
-
   const vanta = new Vanta({
     apiKey,
   });

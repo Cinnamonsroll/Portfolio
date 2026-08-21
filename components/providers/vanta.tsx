@@ -18,6 +18,7 @@ if (!apiKey) {
 
 const client = new Vanta({
   apiKey,
+  apiUrl: "/api/collect",
   flushInterval: 15000,
   flushSize: 10,
 });
