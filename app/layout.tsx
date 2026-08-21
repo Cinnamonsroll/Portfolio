@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { NAME, DESCRIPTION } from "@/lib/constants";
 import "./globals.css";
+import { VantaProvider } from "@/components/providers/vanta";
 
 const fontSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -60,7 +61,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-bg-primary text-primary">
-        {children}
+        <VantaProvider>{children}</VantaProvider>
       </body>
     </html>
   );

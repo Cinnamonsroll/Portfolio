@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@vanta-dev/node": "^0.0.2",
+    "@vanta-dev/web": "^0.0.3",
     "highlight.js": "^11.11.1",
     "marked": "^18.0.3",
     "marked-highlight": "^2.2.4",
