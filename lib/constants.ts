@@ -10,7 +10,7 @@ export const DESCRIPTION = [
 ].join(" ");
 export const GITHUB = "https://github.com/Cinnamonsroll";
 export const API_URL = "https://vantapi.pancake.wtf";
-export const LAST_UPDATED = new Date(2026, 8, 21);
+export const LAST_UPDATED = new Date(2026, 7, 21);
 
 export const EMAIL = "rubiksking124@gmail.com";
 export const DISCORD = "star__sailor";
