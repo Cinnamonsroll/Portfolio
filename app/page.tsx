@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Hero } from "@/components/sections/hero";
 import { GridSection } from "@/components/sections/grid-section";
 import { LAST_UPDATED } from "@/lib/constants";
-import { filter, timeRange, Vanta } from "@vanta-dev/node";
+import { and, filter, timeRange, Vanta } from "@vanta-dev/node";
 
 export default function Home() {
   const [focusSlug, setFocusSlug] = useState<string | null>(null);
@@ -24,10 +24,13 @@ export default function Home() {
 
     const now = new Date();
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-
+    vanta;
     vanta
       .count({
-        filters: filter("type", "equals", "$page"),
+        filters: and(
+          filter("type", "equals", "$measure"),
+          filter("name", "equals", "page_view"),
+        ),
         time: timeRange(yesterday.toISOString(), now.toISOString()),
       })
       .then(({ count }) => {

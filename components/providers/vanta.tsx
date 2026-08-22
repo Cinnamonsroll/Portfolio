@@ -48,6 +48,18 @@ export function VantaProvider({ children }: { children: ReactNode }) {
         },
       });
     });
+
+    client.increment("page_view").catch((err) => {
+      console.log("Failed to increment page view", err);
+      client.track({
+        event: "error",
+        data: {
+          message: "Failed to increment page view",
+          error: err instanceof Error ? err.message : String(err),
+          pathname,
+        },
+      });
+    });
   }, [pathname]);
 
   return (
