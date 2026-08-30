@@ -91,7 +91,7 @@ export function ProjectPageClient({ project }: Props) {
 
         {project.collaborators && project.collaborators.length > 0 && (
           <div className="flex flex-wrap items-center gap-4 mt-4">
-            <Collaborators collaborators={project.collaborators} />
+            <Collaborators collaborators={project.collaborators.sort((a, b) => a.name.localeCompare(b.name))} />
           </div>
         )}
       </header>
