@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 
 export function ImageEffects({ children }: { children: React.ReactNode }) {
@@ -79,33 +80,36 @@ export function ImageEffects({ children }: { children: React.ReactNode }) {
         {children}
       </div>
 
-      {lightbox && (
-        <div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 ${
-            closing ? "lightbox-overlay--closing" : "lightbox-overlay"
-          }`}
-          onClick={closeLightbox}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeLightbox(); }}
-          role="button"
-          tabIndex={-1}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            key={lightbox.src}
-            src={lightbox.src}
-            alt={lightbox.alt}
-            className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl ${
-              closing ? "lightbox-img--closing" : "lightbox-img"
+      {lightbox &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 ${
+              closing ? "lightbox-overlay--closing" : "lightbox-overlay"
             }`}
-          />
-          <button
-            className="absolute top-5 right-5 size-9 flex items-center justify-center rounded-full border border-border bg-[#130f0c]/80 text-muted hover:text-primary hover:border-accent/50 transition-colors cursor-pointer"
             onClick={closeLightbox}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeLightbox(); }}
+            role="button"
+            tabIndex={-1}
           >
-            <XMarkIcon className="size-4" />
-          </button>
-        </div>
-      )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              key={lightbox.src}
+              src={lightbox.src}
+              alt={lightbox.alt}
+              className={`max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl ${
+                closing ? "lightbox-img--closing" : "lightbox-img"
+              }`}
+            />
+            <button
+              className="absolute top-5 right-5 size-9 flex items-center justify-center rounded-full border border-border bg-[#130f0c]/80 text-muted hover:text-primary hover:border-accent/50 transition-colors cursor-pointer"
+              onClick={closeLightbox}
+            >
+              <XMarkIcon className="size-4" />
+            </button>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
