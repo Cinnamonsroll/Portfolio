@@ -3,11 +3,32 @@ import Image from "next/image";
 import { BackButton } from "@/components/ui/back-button";
 import { projects } from "@/lib/data/projects";
 import { byDate } from "@/lib/utils";
+import { JsonLd } from "@/components/seo/json-ld";
+import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
+
+const SITE_URL = "https://pancake.wtf";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Projects I've built",
+  description: "A collection of things I've built.",
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    title: "Work - Projects I've built",
+    description: "A collection of things I've built, from desktop apps to analytics platforms.",
+    url: `${SITE_URL}/work`,
+    siteName: NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Work - Projects I've built",
+    description: "A collection of things I've built.",
+    creator: "@Cinnamo44817432",
+  },
 };
 
 export default function WorkPage() {
@@ -15,6 +36,27 @@ export default function WorkPage() {
 
   return (
     <main className="min-h-screen w-full max-w-5xl mx-auto px-6 py-16 md:py-24">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Work",
+          description: "A collection of things I've built.",
+          url: `${SITE_URL}/work`,
+          itemListElement: sorted.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "CreativeWork",
+              name: p.title,
+              url: `${SITE_URL}/work/${p.slug}`,
+              image: p.hero?.src ? `${SITE_URL}${p.hero.src}` : undefined,
+              description: p.synopsis ?? p.description,
+            },
+          })),
+        }}
+      />
+
       <div className="mb-12 flex items-center gap-4">
         <BackButton href="/" />
       </div>

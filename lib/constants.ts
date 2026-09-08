@@ -8,9 +8,11 @@ export const DESCRIPTION = [
   "and an aspiring teacher. Currently I am getting my associate's degree in arts and computer science",
   "and will graduate in 2026 to finish my bachelor's degree in K-12 French teaching.",
 ].join(" ");
+export const SHORT_DESCRIPTION =
+  "Juliette, a developer who builds things with TypeScript and React, and a musician, French learner, and aspiring teacher.";
 export const GITHUB = "https://github.com/Cinnamonsroll";
 export const API_URL = "https://vantapi.pancake.wtf";
-export const LAST_UPDATED = new Date(2026, 7, 29);
+export const LAST_UPDATED = new Date(2026, 8, 8);
 
 export const EMAIL = "rubiksking124@gmail.com";
 export const DISCORD = "star__sailor";

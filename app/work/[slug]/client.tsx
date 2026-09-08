@@ -60,7 +60,7 @@ export function ProjectPageClient({ project }: Props) {
           {project.date?.start && (
             <span className="tabular-nums">
               {formatDate(project.date.start, true)}
-              {project.date.end && ` — ${formatDate(project.date.end, true)}`}
+              {project.date.end && ` - ${formatDate(project.date.end, true)}`}
             </span>
           )}
 

@@ -4,11 +4,32 @@ import { BackButton } from "@/components/ui/back-button";
 import { blogs } from "@/lib/data/words";
 import { byDate, formatDate } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
+import { JsonLd } from "@/components/seo/json-ld";
+import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
+
+const SITE_URL = "https://pancake.wtf";
 
 export const metadata: Metadata = {
   title: "Words",
   description: "Thoughts on code, music, and everything in between",
+  alternates: {
+    canonical: "/words",
+  },
+  openGraph: {
+    title: "Words - Juliette",
+    description: "Thoughts on code, music, and everything in between",
+    url: `${SITE_URL}/words`,
+    siteName: NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Words - Juliette",
+    description: "Thoughts on code, music, and everything in between",
+    creator: "@Cinnamo44817432",
+  },
 };
 
 export default function WordsPage() {
@@ -16,6 +37,27 @@ export default function WordsPage() {
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Words",
+          description: "Thoughts on code, music, and everything in between",
+          url: `${SITE_URL}/words`,
+          itemListElement: sorted.map((b, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "BlogPosting",
+              headline: b.title,
+              url: `${SITE_URL}/words/${b.slug}`,
+              image: b.hero?.src ? `${SITE_URL}${b.hero.src}` : undefined,
+              description: b.description,
+            },
+          })),
+        }}
+      />
+
       <div className="mb-12 flex items-center gap-4">
         <BackButton href="/" />
       </div>

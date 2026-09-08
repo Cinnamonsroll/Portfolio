@@ -229,7 +229,7 @@ loop (i < 5) {
 }
 ```
 
-That's all it takes. Every feature follows the same recipe: a token in the lexer, a node in the parser, and a handler in the evaluator. Spark's `and` and `or` operators were added exactly this way — two new token types, two precedence entries, and two short-circuit evaluations.
+That's all it takes. Every feature follows the same recipe: a token in the lexer, a node in the parser, and a handler in the evaluator. Spark's `and` and `or` operators were added exactly this way: two new token types, two precedence entries, and two short-circuit evaluations.
 
 Try it yourself. Break things. Change the syntax. Add features. Now that you know how the pieces fit together, you're not just a language user. You're a language designer.
 

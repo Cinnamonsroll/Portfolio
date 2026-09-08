@@ -241,7 +241,7 @@ export function BlogPageClient({ blog }: Props) {
                   {blog.date?.start && (
                     <span className="tabular-nums">
                       {formatDate(blog.date.start)}
-                      {blog.date.end && <> &mdash; updated {formatDate(blog.date.end)}</>}
+                      {blog.date.end && <> - updated {formatDate(blog.date.end)}</>}
                     </span>
                   )}
                   {blog.tags && blog.tags.length > 0 && (

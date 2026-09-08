@@ -2,7 +2,7 @@ import { toDateString, type RawProject } from "@/lib/types";
 
 const project: RawProject = {
   title: "Spectra",
-  description: "Windows colour picker — real-time picking, multiple formats, harmonies, and a global shortcut",
+  description: "Windows colour picker, real-time picking, multiple formats, harmonies, and a global shortcut",
   synopsis: "Windows colour picker built with Tauri",
   tags: ["tauri", "desktop", "rust", "typescript"],
   hero: { src: "/projects/spectra/hero.svg", alt: "Spectra" },

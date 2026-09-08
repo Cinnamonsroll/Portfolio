@@ -6,6 +6,10 @@ import { getMarkdownContent } from "@/lib/data/content";
 import { renderMarkdown, headingId } from "@/lib/markdown";
 import type { TocItem } from "@/lib/types";
 import { BlogPageClient } from "./client";
+import { JsonLd } from "@/components/seo/json-ld";
+import { NAME } from "@/lib/constants";
+
+const SITE_URL = "https://pancake.wtf";
 
 export async function generateMetadata({
   params,
@@ -16,24 +20,39 @@ export async function generateMetadata({
   const blog = blogs.find((b) => b.slug === slug);
   if (!blog) return {};
 
-  const title = `${blog.title} — Words`;
+  const title = blog.title;
   const description = blog.description;
-  const image = blog.hero?.src;
+  const url = `${SITE_URL}/words/${slug}`;
+  const publishedTime = blog.date?.start
+    ? `${blog.date.start}T00:00:00.000Z`
+    : undefined;
+  const modifiedTime = blog.date?.end
+    ? `${blog.date.end}T00:00:00.000Z`
+    : publishedTime;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: `/words/${slug}`,
+    },
     openGraph: {
       title,
       description,
+      url,
+      siteName: NAME,
+      locale: "en_US",
       type: "article",
-      images: image ? [{ url: image, width: 1200, height: 600 }] : [],
+      publishedTime,
+      modifiedTime,
+      authors: [NAME],
+      tags: blog.tags,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : [],
+      creator: "@Cinnamo44817432",
     },
   };
 }
@@ -95,6 +114,37 @@ export default async function BlogPage({
   const content = getMarkdownContent("words", slug);
   const contentHtml = renderBlogContent(content, blog.images ?? []);
   const headings = extractHeadingsFromMd(content);
+  const url = `${SITE_URL}/words/${slug}`;
 
-  return <BlogPageClient blog={{ ...blog, contentHtml, headings }} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: blog.title,
+          description: blog.description,
+          url,
+          image: blog.hero?.src ? `${SITE_URL}${blog.hero.src}` : undefined,
+          datePublished: blog.date?.start
+            ? `${blog.date.start}T00:00:00.000Z`
+            : undefined,
+          dateModified: blog.date?.end
+            ? `${blog.date.end}T00:00:00.000Z`
+            : undefined,
+          author: {
+            "@type": "Person",
+            name: NAME,
+            url: SITE_URL,
+          },
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": url,
+          },
+          inLanguage: "en-US",
+        }}
+      />
+      <BlogPageClient blog={{ ...blog, contentHtml, headings }} />
+    </>
+  );
 }

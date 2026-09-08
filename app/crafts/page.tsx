@@ -3,11 +3,32 @@ import Image from "next/image";
 import { BackButton } from "@/components/ui/back-button";
 import { crafts } from "@/lib/data/crafts";
 import { STICKER_ICON, STICKER_OUTLINE, formatDate } from "@/lib/utils";
+import { JsonLd } from "@/components/seo/json-ld";
+import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
+
+const SITE_URL = "https://pancake.wtf";
 
 export const metadata: Metadata = {
   title: "Crafts",
   description: "Small things made for fun",
+  alternates: {
+    canonical: "/crafts",
+  },
+  openGraph: {
+    title: "Crafts - Juliette",
+    description: "Small things made for fun, a playground of little ideas and experiments",
+    url: `${SITE_URL}/crafts`,
+    siteName: NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crafts - Juliette",
+    description: "Small things made for fun",
+    creator: "@Cinnamo44817432",
+  },
 };
 
 export default function CraftsPage() {
@@ -17,6 +38,26 @@ export default function CraftsPage() {
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Crafts",
+          description: "Small things made for fun",
+          url: `${SITE_URL}/crafts`,
+          itemListElement: sorted.map((c, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "CreativeWork",
+              name: c.title,
+              url: `${SITE_URL}/crafts/${c.slug}`,
+              description: c.description,
+            },
+          })),
+        }}
+      />
+
       <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-4 mb-12">
         <div className="md:mt-1">
           <BackButton href="/" variant="pill" />

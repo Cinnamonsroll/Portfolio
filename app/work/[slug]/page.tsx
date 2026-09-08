@@ -5,6 +5,10 @@ import { projects } from "@/lib/data/projects";
 import { getMarkdownContent } from "@/lib/data/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { ProjectPageClient } from "./client";
+import { JsonLd } from "@/components/seo/json-ld";
+import { NAME } from "@/lib/constants";
+
+const SITE_URL = "https://pancake.wtf";
 
 export async function generateMetadata({
   params,
@@ -15,27 +19,35 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
 
-  const title = `${project.title} — Juliette`;
-  const description = project.description;
-  const image = project.hero?.src;
-  const url = `https://pancake.wtf/work/${slug}`;
+  const title = project.title;
+  const description = project.synopsis ?? project.description;
+  const url = `${SITE_URL}/work/${slug}`;
+  const publishedTime = project.date?.start
+    ? `${project.date.start}T00:00:00.000Z`
+    : undefined;
 
   return {
     title,
     description,
     icons: { icon: project.hero?.src ?? "/favicon.svg" },
+    alternates: {
+      canonical: `/work/${slug}`,
+    },
     openGraph: {
       title,
       description,
       url,
+      siteName: NAME,
+      locale: "en_US",
       type: "article",
-      images: image ? [{ url: image, width: 1200, height: 600 }] : [],
+      publishedTime,
+      tags: project.tags,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : [],
+      creator: "@Cinnamo44817432",
     },
   };
 }
@@ -63,6 +75,33 @@ export default async function WorkPage({
 
   const content = getMarkdownContent("projects", slug);
   const contentHtml = renderContentToHtml(content, project.images ?? []);
+  const url = `${SITE_URL}/work/${slug}`;
 
-  return <ProjectPageClient project={{ ...project, contentHtml }} />;
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: project.title,
+          url,
+          description: project.synopsis ?? project.description,
+          about: {
+            "@type": "CreativeWork",
+            name: project.title,
+            description: project.description,
+            url,
+            image: project.hero?.src ? `${SITE_URL}${project.hero.src}` : undefined,
+            creator: {
+              "@type": "Person",
+              name: NAME,
+              url: SITE_URL,
+            },
+          },
+          inLanguage: "en-US",
+        }}
+      />
+      <ProjectPageClient project={{ ...project, contentHtml }} />
+    </>
+  );
 }

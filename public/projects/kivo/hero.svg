@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <rect width="1200" height="600" fill="#0f0f1a"/>
+
+  <defs>
+    <pattern id="g" width="48" height="48" patternUnits="userSpaceOnUse">
+      <line x1="48" y1="0" x2="48" y2="48" stroke="#1a1a2e" stroke-width="0.5"/>
+      <line x1="0" y1="48" x2="48" y2="48" stroke="#1a1a2e" stroke-width="0.5"/>
+    </pattern>
+    <radialGradient id="gl" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8c44a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#e8c44a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="id" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#2a2540"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#g)"/>
+  <rect width="1200" height="600" fill="url(#gl)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="1" fill="#e8c44a" opacity="0.15"/>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="599" width="1200" height="1" fill="#e8c44a" opacity="0.25"/>
+
+  <!-- Side decorative elements -->
+  <rect x="60" y="60" width="16" height="16" rx="4" stroke="#e8c44a" stroke-width="1.5" opacity="0.3"/>
+  <rect x="1124" y="524" width="16" height="16" rx="4" stroke="#e8c44a" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- One home, many collections diagram -->
+  <!-- Central bookmark -->
+  <g transform="translate(600, 210)">
+    <rect x="-34" y="-42" width="68" height="80" rx="10" fill="url(#id)" stroke="#e8c44a" stroke-width="1.5"/>
+    <path d="M-18,-20 L18,-20 M-18,-4 L18,-4 M-18,12 L10,12" stroke="#e8c44a" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+    <path d="M-34,38 L0,18 L34,38 Z" fill="none" stroke="#e8c44a" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+
+  <!-- Collections radiating outward -->
+  <g opacity="0.35">
+    <!-- Top left -->
+    <line x1="540" y1="225" x2="360" y2="150" stroke="#e8c44a" stroke-width="1" stroke-dasharray="3 5"/>
+    <!-- Top right -->
+    <line x1="660" y1="225" x2="840" y2="150" stroke="#e8c44a" stroke-width="1" stroke-dasharray="3 5"/>
+    <!-- Right -->
+    <line x1="670" y1="250" x2="900" y2="250" stroke="#e8c44a" stroke-width="1" stroke-dasharray="3 5"/>
+    <!-- Bottom left -->
+    <line x1="545" y1="280" x2="370" y2="370" stroke="#e8c44a" stroke-width="1" stroke-dasharray="3 5"/>
+    <!-- Bottom right -->
+    <line x1="655" y1="280" x2="830" y2="370" stroke="#e8c44a" stroke-width="1" stroke-dasharray="3 5"/>
+  </g>
+
+  <!-- Collection cards -->
+  <g transform="translate(310, 120)">
+    <rect x="0" y="0" width="86" height="30" rx="7" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1"/>
+    <text x="43" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#a89f93">research</text>
+  </g>
+  <g transform="translate(805, 120)">
+    <rect x="0" y="0" width="86" height="30" rx="7" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1"/>
+    <text x="43" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#a89f93">inspiration</text>
+  </g>
+  <g transform="translate(900, 238)">
+    <rect x="0" y="0" width="86" height="30" rx="7" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1"/>
+    <text x="43" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#a89f93">reference</text>
+  </g>
+  <g transform="translate(320, 340)">
+    <rect x="0" y="0" width="86" height="30" rx="7" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1"/>
+    <text x="43" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#a89f93">reading list</text>
+  </g>
+  <g transform="translate(780, 340)">
+    <rect x="0" y="0" width="86" height="30" rx="7" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1"/>
+    <text x="43" y="19" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#a89f93">wishlist</text>
+  </g>
+
+  <!-- Bookmark type chips -->
+  <g opacity="0.5">
+    <g transform="translate(200, 455)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">url</text>
+    </g>
+    <g transform="translate(280, 470)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">text</text>
+    </g>
+    <g transform="translate(360, 485)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">color</text>
+    </g>
+    <g transform="translate(440, 470)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">code</text>
+    </g>
+    <g transform="translate(520, 455)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">email</text>
+    </g>
+
+    <g transform="translate(610, 455)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">image</text>
+    </g>
+    <g transform="translate(690, 470)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">regex</text>
+    </g>
+    <g transform="translate(770, 485)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">date</text>
+    </g>
+    <g transform="translate(850, 470)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">number</text>
+    </g>
+    <g transform="translate(930, 455)">
+      <rect x="0" y="0" width="70" height="22" rx="11" fill="#1a1a2e" stroke="#3a3a5e" stroke-width="0.75"/>
+      <text x="35" y="15" text-anchor="middle" font-family="monospace, sans-serif" font-size="9" fill="#a89f93">phone</text>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#f0ebe3" letter-spacing="-0.02em">kivo</text>
+
+  <!-- Tagline -->
+  <text x="600" y="428" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="17" fill="#a89f93" letter-spacing="0.01em">One home, any collection</text>
+</svg>
