@@ -27,5 +27,14 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomeClient />;
+  return (
+    <>
+      <link
+        rel="discord:component-embed"
+        type="application/json"
+        href="https://pancake.wtf/embeds/page.json"
+      />
+      <HomeClient />
+    </>
+  );
 }
