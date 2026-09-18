@@ -49,6 +49,7 @@ export function DiscordEmbedImage(props: {
 
 export function DiscordEmbedGallery(props: {
   items: DiscordEmbedImage[];
+  thumbnail?: boolean;
 }): null {
   return voidProps(props);
 }
@@ -68,7 +69,7 @@ type Collected = {
   subtitle?: string;
   image?: DiscordEmbedImage;
   contents: string[];
-  galleries: DiscordEmbedImage[][];
+  galleries: { items: DiscordEmbedImage[]; thumbnail: boolean }[];
   buttons: DiscordEmbedButton[];
 };
 
@@ -106,12 +107,13 @@ function collect(node: ReactNode, out: Collected): void {
       const raw = Array.isArray(props.items)
         ? (props.items as DiscordEmbedImage[])
         : [];
-      out.galleries.push(
-        raw.map((item) => ({
+      out.galleries.push({
+        items: raw.map((item) => ({
           src: String(item.src),
           ...(item.description ? { description: item.description } : {}),
         })),
-      );
+        thumbnail: props.thumbnail === true,
+      });
       break;
     }
     case DiscordEmbedButton: {
@@ -205,16 +207,25 @@ export function serializeDiscordEmbed({
     components.push(section);
   }
 
-  for (const images of collected.galleries) {
-    components.push({
-      type: 12,
-      items: images.slice(0, 10).map((item) => ({
-        media: { url: item.src },
-        ...(item.description
-          ? { description: escapeMarkdown(item.description) }
-          : {}),
-      })),
-    });
+  for (const gallery of collected.galleries) {
+    if (gallery.thumbnail) {
+      for (const item of gallery.items.slice(0, 10)) {
+        components.push({
+          type: 9,
+          components: [
+            { type: 10, content: escapeMarkdown(item.description ?? "") },
+          ],
+          accessory: { type: 11, media: { url: item.src } },
+        });
+      }
+    } else {
+      components.push({
+        type: 12,
+        items: gallery.items.slice(0, 10).map((item) => ({
+          media: { url: item.src },
+        })),
+      });
+    }
   }
 
   if (collected.contents.length > 0) {

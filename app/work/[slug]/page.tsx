@@ -99,6 +99,7 @@ export default async function WorkPage({
         </DiscordEmbed.subtitle>
         {gallery.length > 0 && (
           <DiscordEmbed.gallery
+            thumbnail={slug === "numeral"}
             items={gallery.map((image) => ({
               src: absolute(image.src),
               description: image.alt ?? project.title,
