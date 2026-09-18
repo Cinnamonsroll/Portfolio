@@ -176,8 +176,7 @@ export function serializeDiscordEmbed({
     sectionTexts.push({ type: 10, content: collected.subtitle });
   }
 
-  const section: DiscordSection = { type: 9, components: sectionTexts };
-  if (collected.image) {
+  if (sectionTexts.length > 0 && collected.image) {
     const accessory: DiscordSection["accessory"] = {
       type: 11,
       media: { url: collected.image.src },
@@ -185,11 +184,22 @@ export function serializeDiscordEmbed({
     if (collected.image.description) {
       accessory.description = collected.image.description;
     }
-    section.accessory = accessory;
-  }
-
-  if (sectionTexts.length > 0 || collected.image) {
-    components.push(section);
+    components.push({ type: 9, components: sectionTexts, accessory });
+  } else {
+    components.push(...sectionTexts);
+    if (collected.image) {
+      components.push({
+        type: 12,
+        items: [
+          {
+            media: { url: collected.image.src },
+            ...(collected.image.description
+              ? { description: collected.image.description }
+              : {}),
+          },
+        ],
+      });
+    }
   }
 
   for (const images of collected.galleries) {
@@ -222,10 +232,8 @@ export function serializeDiscordEmbed({
   }
 
   return {
-    component: {
-      type: 17,
-      ...(accentColor !== undefined ? { accent_color: accentColor } : {}),
-      components,
-    },
+    type: 17,
+    ...(accentColor !== undefined ? { accent_color: accentColor } : {}),
+    components,
   };
 }
