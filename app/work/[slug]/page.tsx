@@ -69,6 +69,12 @@ function absolute(src: string): string {
   return `${SITE_URL}${src}`;
 }
 
+function embedImageUrl(src: string): string {
+  if (/\.svg$/i.test(src)) return absolute(src);
+  const normalized = src.startsWith("/") ? src : `/${src}`;
+  return `${SITE_URL}/_next/image?url=${encodeURIComponent(normalized)}&w=1280&q=75`;
+}
+
 export default async function WorkPage({
   params,
 }: {
@@ -100,7 +106,7 @@ export default async function WorkPage({
         {gallery.length > 0 && (
           <DiscordEmbed.gallery
             items={gallery.map((image) => ({
-              src: absolute(image.src),
+              src: embedImageUrl(image.src),
               description: image.alt ?? project.title,
             }))}
           />
