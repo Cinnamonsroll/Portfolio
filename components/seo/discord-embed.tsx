@@ -35,6 +35,7 @@ type DiscordEmbedRootProps = {
   path: string;
   url?: string;
   accentColor?: string | number;
+  fallbackImageUrl?: string;
   children?: ReactNode;
 };
 
@@ -42,6 +43,7 @@ function DiscordEmbedRoot({
   path: embedPath,
   url,
   accentColor = DEFAULT_ACCENT_COLOR,
+  fallbackImageUrl = `${SITE_URL}/opengraph-image`,
   children,
 }: DiscordEmbedRootProps) {
   writeEmbedFile(
@@ -49,6 +51,7 @@ function DiscordEmbedRoot({
     serializeDiscordEmbed({
       accentColor,
       url: url ?? `${SITE_URL}/${embedPath}`,
+      fallbackImageUrl,
       children,
     }),
   );

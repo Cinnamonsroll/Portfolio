@@ -165,10 +165,12 @@ function escapeUrl(url: string): string {
 export function serializeDiscordEmbed({
   accentColor: rawAccentColor,
   url,
+  fallbackImageUrl = "",
   children,
 }: {
   accentColor?: string | number;
   url?: string;
+  fallbackImageUrl?: string;
   children?: ReactNode;
 }) {
   const accentColor = normalizeAccentColor(rawAccentColor);
@@ -200,6 +202,11 @@ export function serializeDiscordEmbed({
     section.accessory = {
       type: 11,
       media: { url: collected.image.src },
+    };
+  } else if (fallbackImageUrl) {
+    section.accessory = {
+      type: 11,
+      media: { url: fallbackImageUrl },
     };
   }
 

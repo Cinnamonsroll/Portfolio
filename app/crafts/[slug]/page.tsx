@@ -68,7 +68,7 @@ export default async function CraftPage({
       <DiscordEmbed path={`crafts/${slug}`}>
         <DiscordEmbed.title>{craft.title}</DiscordEmbed.title>
         <DiscordEmbed.subtitle>{craft.description}</DiscordEmbed.subtitle>
-        {craft.icon && (
+        {craft.icon && !/\.svg$/i.test(craft.icon.src) && (
           <DiscordEmbed.image
             src={absolute(craft.icon.src)}
             description={craft.icon.alt ?? craft.title}

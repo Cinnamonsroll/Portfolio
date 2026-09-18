@@ -127,7 +127,7 @@ export default async function BlogPage({
       <DiscordEmbed path={`words/${slug}`}>
         <DiscordEmbed.title>{blog.title}</DiscordEmbed.title>
         <DiscordEmbed.subtitle>{blog.description}</DiscordEmbed.subtitle>
-        {blog.hero && (
+        {blog.hero && !/\.svg$/i.test(blog.hero.src) && (
           <DiscordEmbed.image
             src={absolute(blog.hero.src)}
             description={blog.hero.alt ?? blog.title}

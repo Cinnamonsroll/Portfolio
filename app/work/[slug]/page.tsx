@@ -97,6 +97,9 @@ export default async function WorkPage({
         <DiscordEmbed.subtitle>
           {project.synopsis ?? project.description}
         </DiscordEmbed.subtitle>
+        {project.hero && !/\.svg$/i.test(project.hero.src) && (
+          <DiscordEmbed.image src={absolute(project.hero.src)} />
+        )}
         {gallery.length > 0 && (
           <DiscordEmbed.gallery
             thumbnail={slug === "numeral"}
