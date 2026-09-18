@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <DiscordEmbed path="page">
+      <DiscordEmbed path="page" url={SITE_URL}>
         <DiscordEmbed.title>{NAME}</DiscordEmbed.title>
         <DiscordEmbed.subtitle>
           Developer, musician, and aspiring French teacher.

@@ -151,14 +151,22 @@ function escapeMarkdown(text: string): string {
 type DiscordSection = {
   type: 9;
   components: { type: 10; content: string }[];
-  accessory?: { type: 11; media: { url: string }; description?: string };
+  accessory?: { type: 11; media: { url: string } };
 };
+
+function escapeUrl(url: string): string {
+  return url.replace(/[()]/g, (char) =>
+    char === "(" ? "%28" : "%29",
+  );
+}
 
 export function serializeDiscordEmbed({
   accentColor: rawAccentColor,
+  url,
   children,
 }: {
   accentColor?: string | number;
+  url?: string;
   children?: ReactNode;
 }) {
   const accentColor = normalizeAccentColor(rawAccentColor);
@@ -176,7 +184,9 @@ export function serializeDiscordEmbed({
   if (collected.title) {
     sectionTexts.push({
       type: 10,
-      content: `# ${escapeMarkdown(collected.title)}`,
+      content: url
+        ? `# **[${escapeMarkdown(collected.title)}](${escapeUrl(url)})**`
+        : `# ${escapeMarkdown(collected.title)}`,
     });
   }
   if (collected.subtitle) {
@@ -185,14 +195,10 @@ export function serializeDiscordEmbed({
 
   const section: DiscordSection = { type: 9, components: sectionTexts };
   if (collected.image) {
-    const accessory: DiscordSection["accessory"] = {
+    section.accessory = {
       type: 11,
       media: { url: collected.image.src },
     };
-    if (collected.image.description) {
-      accessory.description = collected.image.description;
-    }
-    section.accessory = accessory;
   }
 
   if (sectionTexts.length > 0 || collected.image) {
@@ -212,7 +218,7 @@ export function serializeDiscordEmbed({
   }
 
   if (collected.contents.length > 0) {
-    components.push({ type: 14, divider: true, spacing: 1 });
+    components.push({ type: 14, spacing: 1 });
     for (const text of collected.contents) {
       components.push({ type: 10, content: escapeMarkdown(text) });
     }
@@ -223,7 +229,7 @@ export function serializeDiscordEmbed({
       type: 1,
       components: collected.buttons.map((button) => ({
         type: 2,
-        style: button.style ?? 5,
+        style: 5,
         label: escapeMarkdown(button.label),
         url: button.url,
       })),
@@ -231,13 +237,10 @@ export function serializeDiscordEmbed({
   }
 
   return {
-    flags: 32768,
-    components: [
-      {
-        type: 17,
-        ...(accentColor !== undefined ? { accent_color: accentColor } : {}),
-        components,
-      },
-    ],
+    component: {
+      type: 17,
+      ...(accentColor !== undefined ? { accent_color: accentColor } : {}),
+      components,
+    },
   };
 }

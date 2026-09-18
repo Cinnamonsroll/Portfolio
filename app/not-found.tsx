@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-8">
-      <DiscordEmbed path="not-found">
+      <DiscordEmbed path="not-found" url={SITE_URL}>
         <DiscordEmbed.title>Page not found</DiscordEmbed.title>
         <DiscordEmbed.subtitle>
           The page you&apos;re looking for doesn&apos;t exist or may have moved.

@@ -33,16 +33,25 @@ function writeEmbedFile(embedPath: string, payload: unknown): void {
 
 type DiscordEmbedRootProps = {
   path: string;
+  url?: string;
   accentColor?: string | number;
   children?: ReactNode;
 };
 
 function DiscordEmbedRoot({
   path: embedPath,
+  url,
   accentColor = DEFAULT_ACCENT_COLOR,
   children,
 }: DiscordEmbedRootProps) {
-  writeEmbedFile(embedPath, serializeDiscordEmbed({ accentColor, children }));
+  writeEmbedFile(
+    embedPath,
+    serializeDiscordEmbed({
+      accentColor,
+      url: url ?? `${SITE_URL}/${embedPath}`,
+      children,
+    }),
+  );
 
   return (
     <>
