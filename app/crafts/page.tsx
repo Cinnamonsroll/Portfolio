@@ -4,6 +4,7 @@ import { BackButton } from "@/components/ui/back-button";
 import { crafts } from "@/lib/data/crafts";
 import { STICKER_ICON, STICKER_OUTLINE, formatDate } from "@/lib/utils";
 import { JsonLd } from "@/components/seo/json-ld";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 
@@ -38,6 +39,7 @@ export default function CraftsPage() {
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <DiscordEmbedLink path="crafts" />
       <JsonLd
         data={{
           "@context": "https://schema.org",

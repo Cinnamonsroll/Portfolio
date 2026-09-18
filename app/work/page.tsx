@@ -4,6 +4,7 @@ import { BackButton } from "@/components/ui/back-button";
 import { projects } from "@/lib/data/projects";
 import { byDate } from "@/lib/utils";
 import { JsonLd } from "@/components/seo/json-ld";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 
@@ -36,6 +37,7 @@ export default function WorkPage() {
 
   return (
     <main className="min-h-screen w-full max-w-5xl mx-auto px-6 py-16 md:py-24">
+      <DiscordEmbedLink path="work" />
       <JsonLd
         data={{
           "@context": "https://schema.org",

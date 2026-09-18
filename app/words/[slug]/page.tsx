@@ -7,6 +7,7 @@ import { renderMarkdown, headingId } from "@/lib/markdown";
 import type { TocItem } from "@/lib/types";
 import { BlogPageClient } from "./client";
 import { JsonLd } from "@/components/seo/json-ld";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 
 const SITE_URL = "https://pancake.wtf";
@@ -118,6 +119,7 @@ export default async function BlogPage({
 
   return (
     <>
+      <DiscordEmbedLink path={`words/${slug}`} />
       <JsonLd
         data={{
           "@context": "https://schema.org",

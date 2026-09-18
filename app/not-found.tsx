@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BackButton } from "@/components/ui/back-button";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-8">
+      <DiscordEmbedLink path="not-found" />
       <div>
         <BackButton href="/" />
       </div>

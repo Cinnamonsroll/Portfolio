@@ -5,6 +5,7 @@ import { blogs } from "@/lib/data/words";
 import { byDate, formatDate } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
 import { JsonLd } from "@/components/seo/json-ld";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 
@@ -37,6 +38,7 @@ export default function WordsPage() {
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <DiscordEmbedLink path="words" />
       <JsonLd
         data={{
           "@context": "https://schema.org",

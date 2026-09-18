@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NAME, SHORT_DESCRIPTION } from "@/lib/constants";
 import { HomeClient } from "./home-client";
+import { DiscordEmbedLink } from "@/components/seo/discord-embed";
 
 export const metadata: Metadata = {
   title: {
@@ -29,11 +30,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <link
-        rel="discord:component-embed"
-        type="application/json"
-        href="https://pancake.wtf/embeds/page.json"
-      />
+      <DiscordEmbedLink path="page" />
       <HomeClient />
     </>
   );

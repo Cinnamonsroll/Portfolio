@@ -1,3 +1,4 @@
+export const SITE_URL = "https://pancake.wtf";
 export const NAME = "Juliette";
 export const PRONOUNS = "she/her";
 export const BIRTHDAY = new Date(2006, 10, 18);
