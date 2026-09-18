@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# generated discord embeds
+/public/embeds/
+
 # production
 /build
 

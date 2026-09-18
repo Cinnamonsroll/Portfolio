@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { NAME, SHORT_DESCRIPTION } from "@/lib/constants";
+import { NAME, SHORT_DESCRIPTION, SITE_URL } from "@/lib/constants";
 import { HomeClient } from "./home-client";
-import { DiscordEmbedLink } from "@/components/seo/discord-embed";
+import { DiscordEmbed } from "@/components/seo/discord-embed";
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +30,23 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <DiscordEmbedLink path="page" />
+      <DiscordEmbed path="page">
+        <DiscordEmbed.title>{NAME}</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>
+          Developer, musician, and aspiring French teacher.
+        </DiscordEmbed.subtitle>
+        <DiscordEmbed.image
+          src={`${SITE_URL}/juliette.png`}
+          description={NAME}
+        />
+        <DiscordEmbed.content>
+          I build things with TypeScript and React, learn French, and teach
+          along the way.
+        </DiscordEmbed.content>
+        <DiscordEmbed.buttons>
+          <DiscordEmbed.button label="pancake.wtf" url={SITE_URL} />
+        </DiscordEmbed.buttons>
+      </DiscordEmbed>
       <HomeClient />
     </>
   );

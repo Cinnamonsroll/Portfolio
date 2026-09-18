@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { StickerApp } from "@/components/crafts/stickers/sticker-app";
 import { JsonLd } from "@/components/seo/json-ld";
-import { DiscordEmbedLink } from "@/components/seo/discord-embed";
+import { DiscordEmbed } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 
 const SITE_URL = "https://pancake.wtf";
@@ -47,6 +47,11 @@ export function generateStaticParams() {
   return crafts.map((c) => ({ slug: c.slug }));
 }
 
+function absolute(src: string): string {
+  if (/^https?:\/\//.test(src)) return src;
+  return `${SITE_URL}${src}`;
+}
+
 export default async function CraftPage({
   params,
 }: {
@@ -60,7 +65,28 @@ export default async function CraftPage({
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
-      <DiscordEmbedLink path={`crafts/${slug}`} />
+      <DiscordEmbed path={`crafts/${slug}`}>
+        <DiscordEmbed.title>{craft.title}</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>{craft.description}</DiscordEmbed.subtitle>
+        {craft.icon && (
+          <DiscordEmbed.image
+            src={absolute(craft.icon.src)}
+            description={craft.icon.alt ?? craft.title}
+          />
+        )}
+        <DiscordEmbed.content>{craft.description}</DiscordEmbed.content>
+        {craft.links && craft.links.length > 0 && (
+          <DiscordEmbed.buttons>
+            {craft.links.map((link) => (
+              <DiscordEmbed.button
+                key={link.name}
+                label={link.name}
+                url={link.url}
+              />
+            ))}
+          </DiscordEmbed.buttons>
+        )}
+      </DiscordEmbed>
       <JsonLd
         data={{
           "@context": "https://schema.org",

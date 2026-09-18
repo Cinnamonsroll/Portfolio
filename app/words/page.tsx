@@ -5,7 +5,7 @@ import { blogs } from "@/lib/data/words";
 import { byDate, formatDate } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
 import { JsonLd } from "@/components/seo/json-ld";
-import { DiscordEmbedLink } from "@/components/seo/discord-embed";
+import { DiscordEmbed } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 
@@ -38,7 +38,16 @@ export default function WordsPage() {
 
   return (
     <main className="min-h-screen w-full max-w-3xl mx-auto px-6 py-16 md:py-24">
-      <DiscordEmbedLink path="words" />
+      <DiscordEmbed path="words">
+        <DiscordEmbed.title>Words</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>Thoughts on code</DiscordEmbed.subtitle>
+        <DiscordEmbed.content>
+          Writing about building things, one small language at a time.
+        </DiscordEmbed.content>
+        <DiscordEmbed.buttons>
+          <DiscordEmbed.button label="Read words" url={`${SITE_URL}/words`} />
+        </DiscordEmbed.buttons>
+      </DiscordEmbed>
       <JsonLd
         data={{
           "@context": "https://schema.org",

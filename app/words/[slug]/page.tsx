@@ -7,7 +7,7 @@ import { renderMarkdown, headingId } from "@/lib/markdown";
 import type { TocItem } from "@/lib/types";
 import { BlogPageClient } from "./client";
 import { JsonLd } from "@/components/seo/json-ld";
-import { DiscordEmbedLink } from "@/components/seo/discord-embed";
+import { DiscordEmbed } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 
 const SITE_URL = "https://pancake.wtf";
@@ -103,6 +103,11 @@ function renderBlogContent(
   return renderMarkdown(content, images, "my-8", true);
 }
 
+function absolute(src: string): string {
+  if (/^https?:\/\//.test(src)) return src;
+  return `${SITE_URL}${src}`;
+}
+
 export default async function BlogPage({
   params,
 }: {
@@ -119,7 +124,17 @@ export default async function BlogPage({
 
   return (
     <>
-      <DiscordEmbedLink path={`words/${slug}`} />
+      <DiscordEmbed path={`words/${slug}`}>
+        <DiscordEmbed.title>{blog.title}</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>{blog.description}</DiscordEmbed.subtitle>
+        {blog.hero && (
+          <DiscordEmbed.image
+            src={absolute(blog.hero.src)}
+            description={blog.hero.alt ?? blog.title}
+          />
+        )}
+        <DiscordEmbed.content>{blog.description}</DiscordEmbed.content>
+      </DiscordEmbed>
       <JsonLd
         data={{
           "@context": "https://schema.org",

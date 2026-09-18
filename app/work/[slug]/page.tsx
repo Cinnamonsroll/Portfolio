@@ -6,7 +6,7 @@ import { getMarkdownContent } from "@/lib/data/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { ProjectPageClient } from "./client";
 import { JsonLd } from "@/components/seo/json-ld";
-import { DiscordEmbedLink } from "@/components/seo/discord-embed";
+import { DiscordEmbed } from "@/components/seo/discord-embed";
 import { NAME } from "@/lib/constants";
 
 const SITE_URL = "https://pancake.wtf";
@@ -64,6 +64,11 @@ function renderContentToHtml(
   return renderMarkdown(content, images, "my-6", false, "img-hover w-full rounded-lg border border-border object-cover cursor-pointer");
 }
 
+function absolute(src: string): string {
+  if (/^https?:\/\//.test(src)) return src;
+  return `${SITE_URL}${src}`;
+}
+
 export default async function WorkPage({
   params,
 }: {
@@ -78,9 +83,41 @@ export default async function WorkPage({
   const contentHtml = renderContentToHtml(content, project.images ?? []);
   const url = `${SITE_URL}/work/${slug}`;
 
+  const gallery =
+    project.images && project.images.length > 0
+      ? project.images
+      : project.hero
+        ? [project.hero]
+        : [];
+
   return (
     <>
-      <DiscordEmbedLink path={`work/${slug}`} />
+      <DiscordEmbed path={`work/${slug}`}>
+        <DiscordEmbed.title>{project.title}</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>
+          {project.synopsis ?? project.description}
+        </DiscordEmbed.subtitle>
+        {gallery.length > 0 && (
+          <DiscordEmbed.gallery
+            items={gallery.map((image) => ({
+              src: absolute(image.src),
+              description: image.alt ?? project.title,
+            }))}
+          />
+        )}
+        <DiscordEmbed.content>{project.description}</DiscordEmbed.content>
+        {project.links && project.links.length > 0 && (
+          <DiscordEmbed.buttons>
+            {project.links.map((link) => (
+              <DiscordEmbed.button
+                key={link.name}
+                label={link.name}
+                url={link.url}
+              />
+            ))}
+          </DiscordEmbed.buttons>
+        )}
+      </DiscordEmbed>
       <JsonLd
         data={{
           "@context": "https://schema.org",

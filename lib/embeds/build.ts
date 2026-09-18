@@ -1,4 +1,12 @@
+import { isValidElement } from "react";
+import type { ReactNode } from "react";
+
 export type DiscordEmbedButtonStyle = 1 | 2 | 3 | 4 | 5;
+
+export type DiscordEmbedImage = {
+  src: string;
+  description?: string;
+};
 
 export type DiscordEmbedButton = {
   label: string;
@@ -6,20 +14,126 @@ export type DiscordEmbedButton = {
   style?: DiscordEmbedButtonStyle;
 };
 
-export type DiscordEmbedImage = {
-  url: string;
-  description?: string;
-};
+type EmbTextProps = { children?: ReactNode };
 
-export type DiscordEmbedContent = {
-  accentColor?: string | number;
-  title: string;
+function toText(node: ReactNode): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(toText).join("");
+  return "";
+}
+
+function voidProps(_: unknown): null {
+  void _;
+  return null;
+}
+
+export function DiscordEmbedTitle(props: EmbTextProps): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedSubtitle(props: EmbTextProps): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedContent(props: EmbTextProps): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedImage(props: {
+  src: string;
+  description?: string;
+}): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedGallery(props: {
+  items: DiscordEmbedImage[];
+}): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedButton(props: DiscordEmbedButton): null {
+  return voidProps(props);
+}
+
+export function DiscordEmbedButtons(props: {
+  children?: ReactNode;
+}): null {
+  return voidProps(props);
+}
+
+type Collected = {
+  title?: string;
   subtitle?: string;
   image?: DiscordEmbedImage;
-  text?: string;
-  texts?: string[];
-  buttons?: DiscordEmbedButton[];
+  contents: string[];
+  galleries: DiscordEmbedImage[][];
+  buttons: DiscordEmbedButton[];
 };
+
+function collect(node: ReactNode, out: Collected): void {
+  if (node == null || typeof node === "boolean") return;
+  if (Array.isArray(node)) {
+    for (const child of node) collect(child, out);
+    return;
+  }
+  if (!isValidElement(node)) return;
+
+  const props = node.props as Record<string, ReactNode>;
+
+  switch (node.type) {
+    case DiscordEmbedTitle:
+      out.title = toText(props.children);
+      break;
+    case DiscordEmbedSubtitle:
+      out.subtitle = toText(props.children);
+      break;
+    case DiscordEmbedContent:
+      out.contents.push(toText(props.children));
+      break;
+    case DiscordEmbedImage: {
+      const src = typeof props.src === "string" ? props.src : "";
+      const description =
+        typeof props.description === "string" ? props.description : undefined;
+      out.image = {
+        src,
+        ...(description !== undefined ? { description } : {}),
+      };
+      break;
+    }
+    case DiscordEmbedGallery: {
+      const raw = Array.isArray(props.items)
+        ? (props.items as DiscordEmbedImage[])
+        : [];
+      out.galleries.push(
+        raw.map((item) => ({
+          src: String(item.src),
+          ...(item.description ? { description: item.description } : {}),
+        })),
+      );
+      break;
+    }
+    case DiscordEmbedButton: {
+      const label = toText(props.label);
+      const url = toText(props.url);
+      out.buttons.push({
+        label,
+        url,
+        ...(typeof props.style === "number"
+          ? { style: props.style as DiscordEmbedButtonStyle }
+          : {}),
+      });
+      break;
+    }
+    case DiscordEmbedButtons:
+      collect(props.children, out);
+      break;
+    default:
+      collect(props.children, out);
+      break;
+  }
+}
 
 function normalizeAccentColor(color?: string | number): number | undefined {
   if (typeof color === "number") return color;
@@ -30,52 +144,75 @@ function normalizeAccentColor(color?: string | number): number | undefined {
   return undefined;
 }
 
-export function buildDiscordEmbed(content: DiscordEmbedContent) {
-  const accentColor = normalizeAccentColor(content.accentColor);
+type DiscordSection = {
+  type: 9;
+  components: { type: 10; content: string }[];
+  accessory?: { type: 11; media: { url: string }; description?: string };
+};
+
+export function serializeDiscordEmbed({
+  accentColor: rawAccentColor,
+  children,
+}: {
+  accentColor?: string | number;
+  children?: ReactNode;
+}) {
+  const accentColor = normalizeAccentColor(rawAccentColor);
+
+  const collected: Collected = {
+    contents: [],
+    galleries: [],
+    buttons: [],
+  };
+  collect(children, collected);
+
   const components: object[] = [];
 
-  const gallery: object[] = [];
-  if (content.title) gallery.push({ type: 10, content: `# ${content.title}` });
-  if (content.subtitle) gallery.push({ type: 10, content: content.subtitle });
-
-  const mediaGallery: {
-    type: number;
-    components: object[];
-    accessory?: { type: number; media: { url: string }; description?: string };
-  } = { type: 9, components: gallery };
-
-  if (content.image) {
-    const accessory: {
-      type: number;
-      media: { url: string };
-      description?: string;
-    } = {
-      type: 11,
-      media: { url: content.image.url },
-    };
-    if (content.image.description) {
-      accessory.description = content.image.description;
-    }
-    mediaGallery.accessory = accessory;
+  const sectionTexts: { type: 10; content: string }[] = [];
+  if (collected.title) {
+    sectionTexts.push({ type: 10, content: `# ${collected.title}` });
+  }
+  if (collected.subtitle) {
+    sectionTexts.push({ type: 10, content: collected.subtitle });
   }
 
-  components.push(mediaGallery);
+  const section: DiscordSection = { type: 9, components: sectionTexts };
+  if (collected.image) {
+    const accessory: DiscordSection["accessory"] = {
+      type: 11,
+      media: { url: collected.image.src },
+    };
+    if (collected.image.description) {
+      accessory.description = collected.image.description;
+    }
+    section.accessory = accessory;
+  }
 
-  const texts = content.text
-    ? [content.text, ...(content.texts ?? [])]
-    : (content.texts ?? []);
+  if (sectionTexts.length > 0 || collected.image) {
+    components.push(section);
+  }
 
-  if (texts.length > 0) {
+  for (const images of collected.galleries) {
+    components.push({
+      type: 12,
+      items: images.slice(0, 10).map((item) => ({
+        media: { url: item.src },
+        ...(item.description ? { description: item.description } : {}),
+      })),
+    });
+  }
+
+  if (collected.contents.length > 0) {
     components.push({ type: 14, divider: true, spacing: 1 });
-    for (const text of texts) {
+    for (const text of collected.contents) {
       components.push({ type: 10, content: text });
     }
   }
 
-  if (content.buttons && content.buttons.length > 0) {
+  if (collected.buttons.length > 0) {
     components.push({
       type: 1,
-      components: content.buttons.map((button) => ({
+      components: collected.buttons.map((button) => ({
         type: 2,
         style: button.style ?? 5,
         label: button.label,
