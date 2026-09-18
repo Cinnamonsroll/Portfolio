@@ -135,30 +135,12 @@ function collect(node: ReactNode, out: Collected): void {
   }
 }
 
-function normalizeAccentColor(color?: string | number): number | undefined {
-  if (typeof color === "number") return color;
-  if (typeof color === "string") {
-    const hex = color.replace(/^#/, "");
-    if (/^[0-9a-f]{6}$/i.test(hex)) return parseInt(hex, 16);
-  }
-  return undefined;
-}
-
-type DiscordSection = {
-  type: 9;
-  components: { type: 10; content: string }[];
-  accessory?: { type: 11; media: { url: string }; description?: string };
-};
-
 export function serializeDiscordEmbed({
-  accentColor: rawAccentColor,
   children,
 }: {
   accentColor?: string | number;
   children?: ReactNode;
 }) {
-  const accentColor = normalizeAccentColor(rawAccentColor);
-
   const collected: Collected = {
     contents: [],
     galleries: [],
@@ -168,72 +150,32 @@ export function serializeDiscordEmbed({
 
   const components: object[] = [];
 
-  const sectionTexts: { type: 10; content: string }[] = [];
   if (collected.title) {
-    sectionTexts.push({ type: 10, content: `# ${collected.title}` });
+    components.push({ type: 10, content: `# ${collected.title}` });
   }
   if (collected.subtitle) {
-    sectionTexts.push({ type: 10, content: collected.subtitle });
+    components.push({ type: 10, content: collected.subtitle });
   }
 
-  if (sectionTexts.length > 0 && collected.image) {
-    const accessory: DiscordSection["accessory"] = {
-      type: 11,
-      media: { url: collected.image.src },
-    };
-    if (collected.image.description) {
-      accessory.description = collected.image.description;
-    }
-    components.push({ type: 9, components: sectionTexts, accessory });
-  } else {
-    components.push(...sectionTexts);
-    if (collected.image) {
-      components.push({
-        type: 12,
-        items: [
-          {
-            media: { url: collected.image.src },
-            ...(collected.image.description
-              ? { description: collected.image.description }
-              : {}),
-          },
-        ],
-      });
-    }
-  }
-
-  for (const images of collected.galleries) {
+  const mediaItems = [
+    ...(collected.image ? [collected.image] : []),
+    ...collected.galleries.flat(),
+  ];
+  if (mediaItems.length > 0) {
     components.push({
       type: 12,
-      items: images.slice(0, 10).map((item) => ({
+      items: mediaItems.slice(0, 10).map((item) => ({
         media: { url: item.src },
-        ...(item.description ? { description: item.description } : {}),
       })),
     });
   }
 
-  if (collected.contents.length > 0) {
-    components.push({ type: 14, divider: true, spacing: 1 });
-    for (const text of collected.contents) {
-      components.push({ type: 10, content: text });
-    }
-  }
-
-  if (collected.buttons.length > 0) {
-    components.push({
-      type: 1,
-      components: collected.buttons.map((button) => ({
-        type: 2,
-        style: button.style ?? 5,
-        label: button.label,
-        url: button.url,
-      })),
-    });
+  for (const text of collected.contents) {
+    components.push({ type: 10, content: text });
   }
 
   return {
     type: 17,
-    ...(accentColor !== undefined ? { accent_color: accentColor } : {}),
     components,
   };
 }
